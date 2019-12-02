@@ -1,0 +1,124 @@
+@import url('normalise.css');
+@import url('CircularProgressButton.css');
+@import url('reset.css');
+@import url('layout.css');
+@import url('font.css');
+@import url('sources-tab.css');
+@import url('slides-tab.css');
+@import url('design-tab.css');
+@import url('download-tab.css');
+@import url('cog.css');
+@import url('colours.css');
+@import url('header.css');
+@import url('tabs.css');
+@import url('alert.css');
+@import url('range.css');
+@import url('audio-player.css');
+@import url('audio-splitter.css');
+@import url('marker.css');
+@import url('controlPanel.css');
+@import url('rangeSliders.css');
+
+:root {
+	--banner-height: 115px;
+
+	--panel-main: #3c3b3f;
+	--panel-hilight: #767676;
+	--panel-font: #c9c9c9;
+}
+
+button {
+    background-color: rgba(255,255,255,.75);
+    border-radius: 3px;
+    padding: 0 5px 0 0;
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,.1);
+    color: #333;
+    margin: 3px;
+    border: 1px solid rgba(0,0,0,.1);
+    transition: background-color .15s,color .15s;
+    white-space: nowrap;
+    outline: 0;
+}
+
+a[data-ready='false'] {
+	pointer-events: none;
+	opacity: 0.3;
+}
+
+.ninja-pulse {
+  animation: ninja-pulse 1.6s infinite alternate linear;
+  width: 1.5em;
+}
+
+@keyframes ninja-pulse {
+  0% {
+	  opacity: .5;
+  }
+  100% {
+	  opacity: 1;
+  }
+
+}
+
+#surveyButton {
+  border: 2px solid #cc8214;
+  color: #cc8214;
+}
+#surveyButton:hover {
+  background-color: #cc8214;
+  color: #fff;
+}
+.survey-modal {
+  display: none;
+  position: absolute;
+  top: -115px;
+  width: 100%;
+  height: 124%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 99;
+}
+.survey-bar {
+  display: block;
+  width: 640px;
+  margin: 115px auto 0 auto;
+  height: 20px;
+}
+.survey-bar > i {
+  float: right;
+  font-size: 16px;
+  cursor: pointer;
+}
+#surveyFrame {
+  display: block;
+  margin: 0 auto;
+}
+.survey-button {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 45%;
+  min-width: 250px;
+  margin: 10px;
+}
+
+.survey-button button {
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  width: 250px;
+  height: 70px;
+  border: 2px solid #1ECD97;
+  /*border: 2px solid #14805e;*/
+  border-radius: 40px;
+  background: transparent;
+  color: #1ECD97;
+  /*color: #14805e;*/
+  letter-spacing: 1px;
+  font-size: 18px;
+  /* font-family: 'Montserrat', sans-serif; */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, color 0.3s, width 0.3s, border-width 0.3s, border-color 0.3s;
+}
+
+#TheEnd { thanks: true; }

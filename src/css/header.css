@@ -1,0 +1,33 @@
+.cs-banner {
+	background: rgb(242,242,242);
+	background: -moz-linear-gradient(top,  rgba(242,242,242,1) 0%, rgba(255,255,255,1) 10%);
+	background: -webkit-linear-gradient(top,  rgba(242,242,242,1) 0%,rgba(255,255,255,1) 10%);
+	background: linear-gradient(to bottom,  rgba(242,242,242,1) 0%,rgba(255,255,255,1) 10%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#ffffff',GradientType=0 );
+
+	padding: 0 20px;
+	line-height: 62px;
+	color: #777;
+}
+.cs-banner h1 {
+	font-size: 32px;
+	line-height: 62px;
+	font-weight: 300;
+	margin: 0;
+}
+.cs-banner img {
+	vertical-align: middle;
+	border: 0;
+}
+.cs-banner h1 span {
+	color: #000;
+}
+.cs-banner p {
+	line-height: inherit;
+	margin: 0;
+}
+.cs-banner a {
+	color: #4C5A79;
+	transition: 1s ease;
+	border-radius: 5px;
+}

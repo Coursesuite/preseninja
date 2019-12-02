@@ -1,0 +1,194 @@
+#tabs {
+	background-color: #fff;
+	display: table;
+	width: 100%;
+	text-transform: uppercase;
+	line-height: 48px;
+
+}
+
+#tabs a[data-tab] {
+	width: 20%;
+	display: table-cell;
+	position: relative;
+	padding: 0 1em;
+	text-align: center;
+	text-decoration: none;
+	letter-spacing: 1px;
+	outline: none;
+	white-space: nowrap;
+}
+#tabs a[data-tab]::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: calc(50% - 5px);
+	border-width: 0 10px 10px;
+	border-style: solid;
+	border-color: transparent;
+	display: block;
+	width: 0;
+}
+#tabs > a > i {
+	pointer-events: none;
+}
+#tabs .btn {
+	width: 1%;
+	display: table-cell;
+	text-align: right;
+	font-size: 0;
+	white-space: nowrap;
+}
+
+/* stop tab clicks until marked as ready */
+#tabs:not(.ready) > a[data-tab]:not(:first-of-type) {
+	pointer-events: none;
+	opacity: 0.5;
+}
+#tabs.ready > a[data-tab] {
+	pointer-events: auto;
+}
+
+#tabs > a > i {
+	font-size: 16px;
+	color: black;
+}
+
+/* ---------------------------
+	links & buttons
+-------------------------- */
+
+
+
+#confirm {
+	display: none;
+	width: 0;
+	transition: width .5s ease;
+}
+#confirm.active {
+	width: auto;
+	display: inline;
+	background-color: #76BF39;
+	background: #76BF39 -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%);
+	background: #76BF39 -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0)));
+	background: #76BF39 -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #76BF39 -o-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #76BF39 -ms-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #823aa0 linear-gradient(to bottom,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 );
+	font-size: 12px;
+	text-transform: none;
+	white-space: nowrap;
+	padding: 5px 10px;
+}
+#confirmReset { font-weight: bold;}
+#confirm.active a {
+	color: #fff;
+	margin-right:10px;
+}
+#confirm.active a:hover {
+	text-decoration: underline;
+}
+#clearStorage {
+	padding: 0;
+}
+#clearStorage:focus {
+	outline: none;
+}
+#clearStorage .reset {
+	padding: 5px 10px;
+	color: #fff;
+	border-radius: 5px 0 0 5px;
+	background-color: #823aa0;
+	background: #823aa0 -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%);
+	background: #823aa0 -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0)));
+	background: #823aa0 -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #823aa0 -o-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #823aa0 -ms-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #823aa0 linear-gradient(to bottom,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 );
+	width: 1%;
+	font-size: 12px;
+	text-transform: none;
+	white-space: nowrap;
+}
+
+.btn a[data-action='pop-help'] {
+	padding: 5px 10px;
+	margin-right: 10px;
+	color: #fff;
+	border-radius: 5px;
+	background-color: #E2521B;
+	background: #E2521B -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%);
+	background: #E2521B -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0)));
+	background: #E2521B -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #E2521B -o-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #E2521B -ms-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #E2521B linear-gradient(to bottom,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 );
+	width: 1%;
+	font-size: 12px;
+	text-transform: none;
+	white-space: nowrap;
+	font-weight: bold;
+}
+
+a.continue {
+	padding: 5px 10px;
+	margin: 0;
+	color: #fff;
+	border-radius: 5px;
+	background-color: #33aec5;
+	background: #33aec5 -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%);
+	background: #33aec5 -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0)));
+	background: #33aec5 -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #33aec5 -o-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #33aec5 -ms-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #33aec5 linear-gradient(to bottom,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 );
+	font-size: 12px;
+	text-transform: none;
+	white-space: nowrap;
+	font-weight: bold;
+}
+a.load {
+	padding: 5px 10px;
+	margin: 0;
+	color: #fff;
+	border-radius: 5px;
+	background-color: #999;
+	background: #999 -moz-linear-gradient(top,  rgba(255,255,255,.3) 0%, rgba(255,255,255,0) 100%);
+	background: #999 -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(255,255,255,0)));
+	background: #999 -webkit-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #999 -o-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #999 -ms-linear-gradient(top,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	background: #999 linear-gradient(to bottom,  rgba(255,255,255,.3) 0%,rgba(255,255,255,0) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00ffffff',GradientType=0 );
+	font-size: 12px;
+	text-transform: none;
+	white-space: nowrap;
+	font-weight: bold;
+}
+
+
+/*
+ * tab selection
+ * the body class has states we care about
+ * the selected tab has a triangle notch to indicate it is selected, and the matching section is visible.
+ * sections are not displayed until the body class matching its name exists
+ * tab selection is now just a single style on the body class.
+ *
+ */
+
+body.sources  #tabs a[data-tab="sources"]::after  { border-bottom-color: rgb(182, 141, 44); }
+body.slides   #tabs a[data-tab="slides"]::after   { border-bottom-color: rgb(182, 141, 44); }
+body.download #tabs a[data-tab="download"]::after { border-bottom-color: rgb(75, 59, 20); }
+body.design   #tabs a[data-tab="design"]::after   { border-bottom-color: rgb(182, 141, 44); }
+
+body.sources  section#sources  { display: block; }
+@media (max-height: 599px) {
+	body.sources  section#sources { display: flex;}
+}
+body.slides   section#slides   { display: block; }
+body.design   section#design   { display: block; }
+body.download section#download { display: block; }

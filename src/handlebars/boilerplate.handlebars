@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="{{description}}">
+        <meta name="author" content="{{author}}">
+        <title>{{title}} - Slide {{index}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js"></script>
+        <style>*,*::after,*::before{-moz-box-sizing:border-box;box-sizing:border-box} html,body{height:100vh;} body{margin:0;overflow:none;} img {object-fit:scale-down;}</style>
+        {{{styleTransform}}}
+    </head>
+    <body>
+        {{{content}}}
+        <script type="text/javascript">
+        window.addEventListener("load", function load(event){
+            window.removeEventListener("load", load, false);
+            if (parent && parent.pageReady) {
+                parent.pageReady({{index}});
+            }
+        },false);
+        </script>
+    </body>
+</html>

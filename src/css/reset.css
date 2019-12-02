@@ -1,0 +1,51 @@
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.clearfix:before, .clearfix:after { content: ''; display: table; }
+.clearfix:after { clear: both; }
+
+html {
+	/*height: 100vh;*/
+	/*overflow: hidden;  this feels hacky as fuck */
+}
+body {
+	height: calc(100vh - var(--banner-height));
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+input[type=number] { -moz-appearance: textfield; max-width:3.5em; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	/*-webkit-appearance: none;*/
+	margin: 0;
+}
+
+textarea {
+	border: none;
+	background-color: #fff;
+	font-size: inherit;
+	font-family: inherit;
+	margin: 0;
+	padding: 10px;
+}
+
+fieldset {
+    margin: 0;
+    padding: .35em 0 .75em;
+    border: 0;
+}
+
+fieldset legend {
+	display: block;
+    width: 100%;
+    padding: .3em 0;
+    margin-bottom: .3em;
+    color: inherit;
+    border-bottom: 1px solid rgba(255,255,255,.25);
+}

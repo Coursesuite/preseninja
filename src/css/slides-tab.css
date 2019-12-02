@@ -1,0 +1,197 @@
+section#slides {
+	padding-top: 16px;
+}
+
+section#slides > p {
+	font-size: 24px;
+	width: 75%;
+	margin: 0 auto;
+	padding: 16px;
+}
+
+section#slides .slide-panel {
+	position: absolute;
+	width: 100%;
+	height: 60%;
+}
+
+section#slides #completion,
+section#slides .slide-webvtt-wrapper,
+section#slides .slide-split-wrapper {
+		display: flex;
+		max-width: 75%;
+		height: 52vh;
+		margin: 0 auto;
+		padding: 0 16px;
+	}
+
+
+section#slides p.slide-webvtt-text a {
+	border-bottom:  2px dashed rgba(76, 149, 218, 0.25);
+}
+section#slides #webvtt-editor {
+	max-height: 0;
+	overflow: hidden;
+}
+section#slides #webvtt-editor.visible {
+	max-height: initial;
+	overflow: initial;
+}
+section#slides .slide-split-wrapper .slides {
+	width: 100%;
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	/*max-width: 1280px;*/
+	max-height: 100%;
+}
+section#slides .slide-split-wrapper .slides::after {
+	content:'';
+	display:block;
+	padding-top: 70vh;
+}
+section#slides .slide-split-wrapper .slides > iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgba(255,255,255,.5);
+	border-radius: 4px 4px 0 0;
+	border-bottom-width: 0;
+}
+section#slides .slide-split-wrapper .slides > output {
+	font-size: 28px;
+	font-family: Roboto, Arial, sans-serif;
+	color: rgba(255,255,255,.5);
+	text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+	transform: scale(1);
+	pointer-events: none;
+	position: absolute;
+	top: 24px; right: 24px;
+	opacity: 0;
+}
+section#slides .slide-split-wrapper .slides > output.puff {
+	animation: ninja-puff .8s linear;
+}
+
+@keyframes ninja-puff {
+	0% {
+		opacity: 0;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(2);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(3);
+	}
+}
+
+section#slides #webvtt-errors {
+	color: yellow;
+}
+section#slides .slide-webvtt-wrapper textarea {
+	border: none;
+	outline: none;
+	transition: background-color .3s;
+	border-radius:4px;
+	background-color: rgba(0,0,0,.1);
+	min-height: 384px;
+}
+section#slides .slide-webvtt-wrapper textarea:focus {
+	background-color: rgba(255,255,255,.1);
+}
+section#slides .slide-webvtt-wrapper .textareaLinesNumbers {
+  position: relative;
+  width:100%;
+}
+section#slides .slide-webvtt-wrapper textarea:not(.linesContainer) {
+	width: 100%;
+}
+
+section#slides .slide-webvtt-wrapper .textareaLinesNumbers textarea.linesContainer {
+  display:block;
+  border:none;
+  position:absolute;
+  overflow:hidden;
+  text-align:right;
+  padding-right:0.2em;
+  z-index:0;
+  resize:none;
+}
+
+section#slides .slide-webvtt-wrapper .textareaLinesNumbers textarea:not(.linesContainer) {
+  z-index:1;
+  position:relative;
+  resize:none;
+}
+
+#completion legend {
+	font-size: 24px;
+}
+
+#completion .range-bubble {
+	display: flex;
+}
+#completion .range-bubble > output {
+	text-align: center;
+	text-shadow: none;
+	color: #fff;
+	width: 36px;
+	margin-left: 8px;
+	background-color: rgba(76, 149, 218, 0.25);
+	border-radius: 4px;
+	position: relative;
+}
+#completion .range-bubble > output:before {
+	border: 4px solid transparent;
+	border-right-color: rgba(76, 149, 218, 0.25);
+	content: '';
+	position: absolute;
+	left: -8px;
+	top: calc(50% - 4px);
+}
+
+section#slides div.info {
+	position: relative;
+	height: calc(1em + 12px);
+}
+section#slides div.info > div.hint {
+	position: absolute;
+	background-color: white;
+	color: black;
+	box-shadow: 0 0 1px rgb(0,0,0,.25);
+	border-radius: 4px;
+	padding: 1px;
+	min-width: 2em;
+	text-align: center;
+}
+section#slides div.info > div.hint:after {
+	border: 5px solid transparent;
+	border-top-color: white;
+	position: absolute;
+	top: calc(1em + 6px);
+	left: calc(50% - 5px);
+	content: '';
+}
+
+section#slides div.info > div.hint > span {
+	display: none;
+}
+section#slides div.info > div.hint:not(:hover):before {
+	content:'!';
+}
+section#slides div.info > div.hint:hover > span {
+	display: block;
+	white-space: nowrap;
+	padding: 0 .3em;
+}
+section#slides div.info > div.hint:hover:after {
+	left: calc(1em - 2px);
+}

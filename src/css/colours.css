@@ -1,0 +1,51 @@
+
+
+body.sources {
+	/*background: rgb(30, 47, 70) -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(30, 47, 70) -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(30, 47, 70) linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;*/
+	background: rgb(188, 142, 12) -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(188, 142, 12) -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(188, 142, 12) linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+}
+body.slides {
+	/*background: rgb(7, 49, 40) -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%) fixed;*/
+	/*background: rgb(7, 49, 40) -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;*/
+	/*background: rgb(7, 49, 40) linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;*/
+	background: rgb(188, 142, 12) -moz-linear-gradient(top,  rgba(0,0,0,0.0) 50%, rgba(0,0,0,0.0) 100%) fixed;
+	background: rgb(188, 142, 12) -webkit-linear-gradient(top,  rgba(0,0,0,0.0) 50%,rgba(0,0,0,0.0) 100%) fixed;
+	background: rgb(188, 142, 12) linear-gradient(to bottom,  rgba(0,0,0,0.0) 50%,rgba(0,0,0,0.0) 100%) fixed;
+}
+body.download {
+	/*background: rgb(66,66,66) -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(66,66,66) -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(66,66,66) linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;*/
+	background: rgb(94,71,6) -moz-linear-gradient(top,  rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%) fixed;
+	background: rgb(94,71,6) -webkit-linear-gradient(top,  rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.5) 100%) fixed;
+	background: rgb(94,71,6) linear-gradient(to bottom,  rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.5) 100%) fixed;
+}
+body.design {
+	/*background: rgb(203, 78, 59) -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(203, 78, 59) -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(203, 78, 59) linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;*/
+	background: rgb(188, 142, 12) -moz-linear-gradient(top,  rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(188, 142, 12) -webkit-linear-gradient(top,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+	background: rgb(188, 142, 12) linear-gradient(to bottom,  rgba(0,0,0,0) 50%,rgba(0,0,0,0.2) 100%) fixed;
+}
+
+body>main>section {
+	color: #fff;
+	text-shadow: 0px 1px 3px rgba(0,0,0,.3);
+}
+
+input.picker {
+	height: 25px;
+	width: 25px;
+	border-style: none;
+	border-radius: 25px;
+	font-size: 0px;
+	cursor: pointer;
+}
+select, input[type="text"], input[type="number"] {
+	background-color: rgb(255,255,255);
+}

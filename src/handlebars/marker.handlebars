@@ -1,0 +1,6 @@
+<div class="marker" data-fileid="{{fileid}}" onclick="UI.Dom.Slide.Select(this)">
+	<div class="index"></div>
+	<div class="action"><a href='javascript:UI.Dom.Slide.Remove("{{fileid}}")' title='Remove this slide'><i class="ninja-cancel"></i></a></div>
+	<div class="time" data-action="set-marker" data-seconds="{{seconds}}">{{hhmmss seconds}}</div>
+	<div contenteditable="true" class="caption" placeholder="Enter a caption (optional)">{{caption}}</div>
+</div>

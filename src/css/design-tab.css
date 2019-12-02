@@ -1,0 +1,92 @@
+section#design {
+	padding-top: 16px;
+}
+
+section#design h3 {
+	font-size: 24px;
+}
+
+section#design .wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+	width: 75%;
+	height: 100%;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
+section#design .design-section {
+	/*width: 45%;*/
+	/*height: 100%;*/
+	/*margin:0 5% 0 5%;*/
+}
+
+section#design .design-section > div {
+	margin: auto 0 auto 0;
+}
+
+section#design input,
+section#design select {
+	color: #333;
+}
+
+section#design table.colours,
+section#design table.aspect-ratios { 
+	width: 50%; 
+	margin-bottom: 25px; 
+}
+section#design table.aspect-ratios td { padding: 5px; }
+
+section#design table.aspect-ratios td>div:not(.aspect-ratio) {
+	font-size: 12px;
+	font-weight:normal;
+	border: 1px solid #fff;
+	margin: 1px 0;
+}
+
+
+section#design .ratio-1-1 { padding-bottom: 100%; }
+section#design .ratio-4-3  { padding-bottom: 75%; }
+section#design .ratio-16-9  { padding-bottom: 56.25%; }
+section#design .ratio-16-10  { padding-bottom: 62.5%; }
+section#design [class*='ratio-'] { position: relative; }
+
+section#design [class*='ratio-'] > span {
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	border: 1px solid #fff;
+	text-align: center;
+}
+
+section#design [class*='ratio-'].active > span {
+	background-color: rgba(255,255,255,.125);
+}
+
+section#design p.centered {
+	text-align: center;
+}
+
+section#design .previews > div > svg {
+	width: 75%;
+}
+
+tspan.material-icons {
+	font-size: 18px;
+	text-shadow: none;
+}
+tspan.svgtxt {
+	font-size: 8px;
+	text-shadow: none;
+}
+
+.previews h3:first-of-type {
+	margin-bottom: 0px;
+}
+.previews h3 {
+	display: inline-block;
+	cursor: pointer;
+}

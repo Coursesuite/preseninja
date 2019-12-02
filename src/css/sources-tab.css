@@ -1,0 +1,479 @@
+section#sources {
+	padding-top: 16px;
+}
+
+.sources-grid {
+	display: grid;
+	grid-template-columns: 50%;
+	grid-template-rows: 10% 90%;
+	grid-column-gap: 20px;
+}
+.slides-heading {
+	grid-column-start: 1;
+	grid-row-start: 1;
+	font-size: 32px;
+	text-align: center;
+}
+.slides-section {
+	height: 100%;
+	grid-column-start: 1;
+	grid-row-start: 2;
+}
+.audio-heading {
+	grid-column-start: 2;
+	grid-row-start: 1;
+	font-size: 36px;
+	text-align: center;
+}
+.audio-processing {
+	height: 100%;
+	grid-column-start: 2;
+	grid-row-start: 2;
+}
+.slide-processing {
+	height: 100%;
+}
+
+.slides-section,
+.audio-processing {
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.11);
+}
+
+
+.slide-dropzone {
+	display: block;
+	cursor: pointer;
+}
+.audio-dropzone {
+	display: block;
+	cursor: pointer;
+}
+
+.slide-processing:not(.loading) .slide-dropzone > p,
+.audio-processing:not(.loading) .audio-dropzone > p {
+	height: 100%;
+    margin: 0;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 10px dashed rgba(255, 255, 255, 0.8);
+}
+
+section#sources div[class$='-dropzone'] { 
+	background-color:rgba(255,255,255,0); 
+	transition: background-color .5s ease; 
+}
+body.drag-over section#sources div[class$='-dropzone'] { background-color: rgba(255,255,255,.5); }
+
+section#sources > div {
+		height: 90%;
+		width: 75%;
+		margin: 0 auto 16px;
+	}
+
+	div.slide-processing,
+	div.audio-processing {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid rgba(255,255,255,.5);
+	}
+
+	div[class$='-dropzone'] {
+		/*border: 1px solid rgba(255,255,255,.5);*/
+		width: 100%;
+		height: 39%;
+		padding: 0;
+		padding: 16px;
+		font-size: 24px;
+		border-radius: 4px 4px 0 0;
+	}
+	div[class$='-urlzone'] {
+	    height: 35%;
+	}
+	div[class$='-cloudzone'] {
+		height: 20%;
+		font-size: 24px;
+	}
+	div[class$='-urlzone'], div[class$='-ready'], div.slide-presentation {
+		/*border: 1px solid rgba(255,255,255,.5);*/
+		width: 100%;
+	}
+	div[class$='-dropzone'] small {
+		display: block;
+		opacity: .7;
+		font-size: 16px;
+	}
+	div[class$='-ready'] {
+		border-radius: 4px;
+		font-size: 24px;
+		padding: 16px;
+	}
+	div.slide-presentation {
+		height: 100%;
+		width: 100%;
+		border: 1px solid rgba(255,255,255,0.5);
+		border-radius: 4px;
+		flex-direction: column;
+	}
+	div.slide-presentation div.presentation-header {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: 24px;
+		padding: 8px;
+	}
+	div.slide-presentation div.presentation-frame {
+	    position: relative;
+	    width: 100%;
+	    height: 79%;
+	}
+	div.slide-presentation div.presentation-frame iframe {
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		border: none;
+		background-color: black;
+	}
+	div.slide-presentation div.presentation-footer {
+		padding: 1px 8px 0px 8px;
+		font-size: 16px;
+	}
+	div.nav-info {
+	    width: 100%;
+    	display: inline-block;
+	}
+	div.footer-buttons {
+		display: grid;
+		grid-template-columns: 50% 50%;
+	}
+	span.button-slide-delete {
+	    display: inline-block;
+    	position: relative;
+    	margin: 17px 0px;
+	}
+	span.button-delete.active {
+		display: inline !important;
+	}
+	span.delete-ask {
+		background-color: #b30000;
+		color: #fff;
+		padding: 5px 10px;
+		border-radius: 5px;
+	}
+	span.slide-delete-confirm {
+		display: none;
+	}
+	span.slide-delete-confirm.active {
+		display: inline !important;
+		background-color: #b30000;
+		width: auto;
+		padding: 5px 10px;
+		border-radius: 0 5px 5px 0;
+	    left: -5px;
+    	position: relative;
+	}
+	span.slide-delete-confirm a {
+		padding-right: 10px;
+	}
+	span.slide-delete-confirm a:first-of-type {
+		font-weight: bold;
+	}
+	#addAnother {
+		display: inline-block;
+		margin: 10px 0px;
+		width: fit-content;
+		justify-self: end;
+		opacity: 1;
+		width: 210px;
+	}
+	span.button-audio-delete {
+		display: inline;
+		position: relative;
+		float: right;
+		right: -16px;
+	}
+	span.audio-delete-confirm {
+		display: none;
+	}
+	span.audio-delete-confirm.active {
+		display: inline !important;
+		background-color: #b30000;
+		width: auto;
+		padding: 5px 10px;
+		border-radius: 0px;
+	}
+	span.audio-delete-confirm a {
+		padding-right: 10px;
+	}
+	span.audio-delete-confirm a:first-of-type {
+		font-weight: bold;
+	}
+
+.slide-info {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.slide-urlzone > * {
+		top: 20px;
+		position: relative;
+	}
+	.slide-urlzone textarea {
+		background: rgba(255,255,255,.7);
+		color: rgb(80,80,80);
+		border: none;
+		transition: all .5s ease;
+	    height: 40%;
+	}
+	.slide-urlzone textarea:focus {
+		background: rgba(255,255,255,.9);
+		color: black;
+	}
+
+	.slide-urlzone audio,
+	.slide-urlzone input {
+		flex: 1;
+	}
+	.slide-urlzone button {
+		display: block;
+		margin: 10px auto 0 auto;
+	}
+	.url-box {
+		display: block;
+		width: 60%;
+		margin: 0 auto;
+		resize: none;
+		border: 1px solid white;
+	}
+
+.audio-urlzone {
+	padding: 0 16px;
+}
+	.audio-urlzone p {
+		font-size: 24px;
+		margin: 0;
+	}
+	.audio-urlzone small {
+		display: block;
+		opacity: .7;
+		font-size: 16px;
+	}
+	.controls-container {
+		text-align: center;
+	}
+	.controls-container button {
+		display: none;
+		margin-top: 10px;
+	}
+	.controls-container button[data-action="record"].visible {
+		display: block;
+		margin: 10px auto 0px auto;
+	}
+	.controls-container button[data-action="delete"].visible,
+	.controls-container button[data-action="use"].visible {
+		display: inline-block;
+	}
+	.controls-container button > span > i {
+		color: white;
+		font-size: 16px;
+		margin-right: 5px;
+	}
+	div.canvas-container > canvas {
+		width: 75%;
+	}
+	.audio-urlzone > div.canvas-container {
+		display: inline-block;
+		/*margin: 16px 0px;*/
+		width: 100%;
+	}
+	.audio-urlzone > div.canvas-container > * {
+		flex: 1;
+		display: none;
+		margin: 0 auto;
+	}
+	.audio-urlzone > div.canvas-container > .visible {
+		display: block;
+	}
+	.audio-urlzone #recorder-timestamp {
+		display: inline-block;
+		align-self: center;
+		position: absolute;
+		/*position: relative;*/
+		/*top: -26px;*/
+	}
+	.audio-urlzone .rec-desc,
+	.audio-urlzone .rec-help {
+		display: none;
+	}
+	.audio-urlzone .rec-desc.visible,
+	.audio-urlzone .rec-help.visible {
+		display: block;
+	}
+	.audio-urlzone .rec-desc > small {
+		/*height: 40px;*/
+	}
+
+
+.audio-ready-footer span {
+	font-size: 16px;
+}
+.audio-ready .delete-ask {
+	border-radius: 5px 0px 0px 5px;
+}
+
+div[class$='-cloudzone'] {
+	width: 100%;
+}
+	div[class$='-cloudzone'] p {
+		text-align: center;
+		margin-bottom: 16px;
+	}
+	div[class$='-cloudzone'] button {
+		display: block;
+		padding: 10px;
+		margin: 0 auto 16px auto;
+	}
+	div[class$='-cloudzone'] button i {
+		color: white;
+		font-size: 100%;
+		padding-right: 5px;
+	}
+
+/* when slides are previewable and audio is done then allow the continue button to function */
+section#sources .done + .done + .continue-button {
+	opacity: 1;
+	pointer-events: auto;
+}
+section#sources .done + .done + .continue-button i.fa {
+	opacity: 1;
+}
+
+section#sources .slide-presentation,
+section#sources .audio-ready,
+section#sources .slide-processing.done,
+section#sources .audio-processing.done > div:not(.audio-ready) {
+	display: none;
+}
+section#sources .audio-processing.done > .audio-ready,
+section#sources .slide-presentation.done {
+	display: block;
+}
+
+.audio-processing.done > p {
+	display: none;
+}
+
+.slide-processing.loading > div.slide-urlzone,
+.slide-processing.loading > div.slide-cloudzone,
+.slide-processing.loading > p {
+	display: none;
+}
+.audio-processing.loading > div.audio-urlzone,
+.audio-processing.loading > div.audio-cloudzone,
+.audio-processing.loading > p {
+	display: none;
+}
+.audio-processing.loading > div.audio-dropzone,
+.slide-processing.loading > div.slide-dropzone {
+	cursor: default;
+	pointer-events: none;
+}
+
+.slide-processing.importing > div.slide-urlzone,
+.slide-processing.importing > div.slide-cloudzone,
+.slide-processing.importing > p {
+	display: none;
+}
+.audio-processing.importing > div.audio-urlzone,
+.audio-processing.importing > div.audio-cloudzone,
+.audio-processing.importing > p {
+	display: none;
+}
+.audio-processing.importing > div.audio-dropzone,
+.slide-processing.importing > div.slide-dropzone {
+	display: none;
+	cursor: default;
+	pointer-events: none;
+}
+
+.slide-processing.importing:after {
+	content: 'Importing slides...';
+	font-size: 32px;
+}
+.audio-processing.importing:after {
+	content: 'Importing audio...';
+	font-size: 32px;
+}
+
+
+.progress-bar {
+	display: none;
+	width: 100%;
+	height: 20px;
+	float: left;
+	position: relative;
+	background: #555;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	padding: 5px;
+}
+.progress-bar.active {
+	display: block;
+}
+.progress-bar> span {
+	display: block;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.progress-bar.green > span {
+	background-color: rgb(127,186,66);
+}
+.progress-bar.blue > span {
+	background-color: rgb(47,160,218);
+}
+
+p.or {
+	display: flex;
+	height: 3%;
+    position: relative;
+	width: 100%;
+    text-align: center;
+}
+p.or > i {
+	display: inline-block;
+	width: fit-content;
+    font-style: italic;
+    color: #FFF;
+    padding: 0 10px;
+}
+p.or > span{
+    flex: 1 0 40%;
+    display: inline-block;
+    position: relative;
+    height: 1px;
+    border-bottom: 1px dotted #FFF;
+    top: 10px;
+}
+
+
+
+@media (max-width: 1280px), (max-height: 800px) {
+	div[class$='-cloudzone'] {
+	    font-size: 18px;
+	}
+	div[class$="-cloudzone"] p {
+		margin-top: 12px;
+		margin-bottom: 12px;
+	}
+	.audio-urlzone p {
+    	font-size: 18px;
+	}
+}

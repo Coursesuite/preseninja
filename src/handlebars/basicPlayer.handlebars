@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<meta content="{{name}}" name="title">
+		<meta content="{{description}}" name="description">
+		<meta content="{{copyright}}" name="copyright">
+		<meta content="{{timestamp}}" name="timestamp">
+		<meta content="https://www.coursesuite.ninja/store/info/presninja" name="author">
+		<title>{{name}}</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<style>
+			:root {
+				--main-color: #a7a399;
+				--hilight-color: #ffffff;
+				--progress-color: #ffffff;
+				--progress-played-color: #ffffff;
+			}
+			/* ------ RESET --------- */
+			* { 
+			    -moz-box-sizing: border-box; 
+			    -webkit-box-sizing: border-box; 
+			    box-sizing: border-box;
+			    position: relative;
+			    padding: 0; margin: 0;
+			    font-family: 'Roboto', sans-serif;
+			} 
+			html {
+				min-height: 100vh;
+			}
+			body {
+				background-color: {{body-bg-colour}};
+				color: {{body-text-colour}};
+				overflow: hidden;
+			}
+			iframe {
+				border: none;
+			}
+			div {
+				color: {{text-colour}};
+			}
+			.player button {
+				border: none;
+				outline: none;
+				background: none;
+				color: {{text-colour}};
+			}
+			
+			/* ----- Powered By ------- */
+			.watermark {
+				position: absolute;
+				right: 0px;
+			    overflow: hidden;
+			    height: 14px;
+			    width: 125px;
+				z-index: 99;
+			}
+			.powered-by span {
+				opacity: 0;
+				transition: opacity .3s;
+				text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+				color: white;
+			}
+			.powered-by img {
+				vertical-align: bottom;
+				right: 1px;
+			}
+			.powered-by {
+				font-size: 10px;
+				padding: 2px;
+				opacity: 0.5;
+				transform: translateX(110px);
+				transition: opacity .3s, transform .3s ease;
+			}
+			.powered-by:hover {
+				transform: translateX(0);
+				opacity: 1;
+			}
+			.powered-by:hover span {
+				opacity: 1;
+			}
+			.powered-by a {
+				color: inherit;
+			}
+			/* ------------ Slides ------------------ */
+			.slides {
+				max-height: 96vh;
+				width: 100%;
+			}
+			.pres-wrapper-container {
+			    max-height: 96vh;
+			    margin: 0 auto;
+/*			    {{#compare aspectRatio "==" "4:3"}}
+			    width: 65%;
+			    {{/compare}}
+			    {{#compare aspectRatio "==" "16:9"}}
+			    width: 87%;
+			    {{/compare}}*/
+			}
+			.pres-wrapper {
+				max-height: 96vh;
+			}
+			.pres-wrapper:after {
+				content: '';
+				display: block;
+				{{#compare aspectRatio "==" "4:3"}}
+				padding-bottom: 75%;
+				{{/compare}}
+				{{#compare aspectRatio "==" "16:9"}}
+			    padding-bottom: 56.25%;
+				{{/compare}}
+
+			}
+			#presentation {
+				width: 100%;
+			    height: 100%;
+			    position: absolute;
+			}
+			/* ------------ Player ------------------ */
+			.player {
+				height: 4vh;
+				display: flex;
+				background-color: {{bg-colour}};
+				margin: 0 auto;
+/*				{{#compare aspectRatio "==" "4:3"}}
+			    width: 65%;
+			    {{/compare}}
+			    {{#compare aspectRatio "==" "16:9"}}
+			    width: 87%;
+			    {{/compare}}*/
+			}
+			.player > div {
+				display: inline-block;
+			}
+			.left-controls {
+				flex: 0 0 auto;
+    			top: 2px;
+			}
+			#progressBar {
+				flex: 1 0 auto;
+			    height: 17px;
+			    top: 4.5px;
+			    background-color: {{range-colour}};
+			}
+			.progress-bar-played {
+				position: absolute;
+				width: 0%;
+				height: 100%;
+			    background-color: {{progress-color}};
+			    opacity: 0.2;
+			}
+			.right-controls {
+				flex: 0 0 auto;
+				width: 300px;
+			}
+			.time-info { 
+			    position: absolute;
+    			top: 3px;
+    			width: 35%;
+    		}
+    		.volume-wrapper {
+			    position: absolute;
+    			right: 22px;
+    			top: 2px;
+    			width: 60%;
+    		}
+    		.volume-wrapper input {
+			    position: relative;
+    			width: 60%;
+    			top: -2px;
+    		}
+    		#fullscreen {
+    			position: absolute;
+			    right: 7px;
+			    top: 1.5px;
+    		}
+		</style>
+		<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	</head>
+	<body onunload="doUnload()" onbeforeunload="doUnload()">
+		<noscript>This course will only function if JavaScript is enabled.</noscript>
+		<div class="content-wrapper">
+			<div class="slides">
+				<div class='pres-wrapper-container'>
+				<div class="watermark">
+						
+						<div class="powered-by"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAAsTAAALEwEAmpwYAAAORmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIiB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTUtMTEtMTlUMTQ6MTg6MTkrMTE6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMTctMTItMDdUMTA6NTA6NTMrMTE6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE3LTEyLTA3VDEwOjUwOjUzKzExOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpjOWYwNDFjOS0wMDAzLTQxZDgtODQ0Yi0wNDA4OTAzMzY4YzEiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDozNmQwZjhiNC04MzBmLTUyNGUtODFiNi1jYzA3NTUwYjM4NjYiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1OTFmZTVkYS1mZjBkLTYzNDgtOWIzNS1mMTg4MmZmMmQyMjQiIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgdGlmZjpPcmllbnRhdGlvbj0iMSIgdGlmZjpYUmVzb2x1dGlvbj0iNzIwMDAwLzEwMDAwIiB0aWZmOllSZXNvbHV0aW9uPSI3MjAwMDAvMTAwMDAiIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiIGV4aWY6Q29sb3JTcGFjZT0iMSIgZXhpZjpQaXhlbFhEaW1lbnNpb249IjYzIiBleGlmOlBpeGVsWURpbWVuc2lvbj0iNjMiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjU5MWZlNWRhLWZmMGQtNjM0OC05YjM1LWYxODgyZmYyZDIyNCIgc3RFdnQ6d2hlbj0iMjAxNS0xMS0xOVQxNDoxODoxOSsxMTowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NTM2ZDY0NC1lYjA4LWQ1NDEtYjA2MC0wMTkzOTQ4YTQyZTIiIHN0RXZ0OndoZW49IjIwMTUtMTEtMTlUMTQ6MTk6MzQrMTE6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChXaW5kb3dzKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY29udmVydGVkIiBzdEV2dDpwYXJhbWV0ZXJzPSJmcm9tIGltYWdlL2pwZWcgdG8gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iZGVyaXZlZCIgc3RFdnQ6cGFyYW1ldGVycz0iY29udmVydGVkIGZyb20gaW1hZ2UvanBlZyB0byBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo2YjhmNDAwZS00YTRmLTk4NGEtODZhNi1jYjRiMGUzNjg1YTQiIHN0RXZ0OndoZW49IjIwMTUtMTEtMTlUMTQ6MTk6MzQrMTE6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE1IChXaW5kb3dzKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MzQyMTkwOTItOWJhYi00MjdmLWJhYjgtYjkzMGI1YjA3YjA3IiBzdEV2dDp3aGVuPSIyMDE2LTAxLTMxVDA4OjM2OjA1KzExOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY29udmVydGVkIiBzdEV2dDpwYXJhbWV0ZXJzPSJmcm9tIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3AgdG8gaW1hZ2UvcG5nIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJkZXJpdmVkIiBzdEV2dDpwYXJhbWV0ZXJzPSJjb252ZXJ0ZWQgZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MTQ0ZjI0NDctZjJhMi00NGQwLTk5ZGUtN2MwMTBmODdhNjY0IiBzdEV2dDp3aGVuPSIyMDE2LTAxLTMxVDA4OjM2OjA1KzExOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6YzlmMDQxYzktMDAwMy00MWQ4LTg0NGItMDQwODkwMzM2OGMxIiBzdEV2dDp3aGVuPSIyMDE3LTEyLTA3VDEwOjUwOjUzKzExOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM0MjE5MDkyLTliYWItNDI3Zi1iYWI4LWI5MzBiNWIwN2IwNyIgc3RSZWY6ZG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjU4Mzg2YWRlLThlNmMtMTFlNS05NDVlLWYxMTVmOWZkZDI5NiIgc3RSZWY6b3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjU5MWZlNWRhLWZmMGQtNjM0OC05YjM1LWYxODgyZmYyZDIyNCIvPiA8cGhvdG9zaG9wOkRvY3VtZW50QW5jZXN0b3JzPiA8cmRmOkJhZz4gPHJkZjpsaT5hZG9iZTpkb2NpZDpwaG90b3Nob3A6YzJkNDgwYzktMDRmZS0xMWU1LTljMGItOGQwNDFhZTNhNWNjPC9yZGY6bGk+IDxyZGY6bGk+YWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOmM2NTdiZDI4LTU3MGUtMTFlMy05NzY2LWVlYmQ2NmM1OGZlZTwvcmRmOmxpPiA8cmRmOmxpPnhtcC5kaWQ6NDVFQjA0RkUyMDIwNjgxMTgyMkFFODg1NEE4RjVCMzQ8L3JkZjpsaT4gPC9yZGY6QmFnPiA8L3Bob3Rvc2hvcDpEb2N1bWVudEFuY2VzdG9ycz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7YvOynAAACBElEQVQoFQXB0UtTURwH8O/vd869d7vbWiudpWYZYRAypOhBCUWKCiIKRr0Y9BQ9RdH/0Gsg9OAf0FMQ+BCEf0BRi0CIKDW0JUzBOddm995zz7nn9PnQo1cMOED6BC+HAV/aM57l7uufz35td+4UKfzN4KAHFoBzYCIAAITEYz+P7yLPjfBotlGfWHxZKDV9R8NXiMUF2AwAIGrXCCypHoRYIqALh64RdGTYz2Z2+6VGS93apUJ8n6wlsmZTpjHKLHBXRVhhhhUeBjzL/QS2FqIzChb7kL5EwX+OXvtAZhoTOnH7JkUTnh2XATLPoFpM0dzTZ9fhYw5EJXi5Qfj5p9IoFDNnd5zEVi4pvad+YTTj3csf9fnPG27hIgXtGYAVmANIryaT2GpBeHvCzI5X0qsPbJpZpT68eJOv583xypKQrR+O/EGATkNFkTh1Cd0hmj42Zh++cxzNGkQjxX/lsQOdW90Jy7edF0wRU4ioV7Z7f5bFxJSvRlB/IgJ9U5nu1zRVGwkp/2S8vdqO05W/NphzSg+5/VYD6vCeDPUkEs1bLDtgFsJaa5XlFgk5f+Pwy3K7921+E5VqatJPFcQQtckpWJVfU6Y/LYSYds51MmN6aeb6iUXVU724GrcaQ/rAlrII0iIFM8VRFF+PonjR87xzzrlUa93VWq9lGa87KhgWDAD4DzOT++tsbZeHAAAAAElFTkSuQmCC"><span>Powered by <a href="https://www.coursesuite.ninja/" target="_blank">CourseSuite</a></span></div>
+				</div>
+				<div class="pres-wrapper">
+					<iframe id="presentation" allow="fullscreen" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="data/{{zeroth slides 'fileid'}}.html"></iframe>
+				</div>
+				</div>
+			</div>
+			<div class="player">
+				<div class="left-controls">
+					<button id="playPause"><i class='material-icons'>play_arrow</i></button>
+					<button id="prevSlide"><i class="material-icons">skip_previous</i></button>
+					<button id="nextSlide"><i class='material-icons'>skip_next</i></button>
+				</div>
+				<div id="progressBar">
+					<div class="progress-bar-played"></div>
+				</div>
+				<div class="right-controls">
+					<div class="time-info">
+						<span class="current-time">00:00</span>
+						<span class="time-separator">/</span>
+						<span class="total-time">{{mmss duration}}</span>
+					</div>
+					<div class="volume-wrapper">
+						<i id="volDown" class='material-icons'>volume_down</i>
+						<input id="volumeSlider" type="range" class="ninja-range" min="0" max="100" value="{{volume}}" />
+						<i id="volUp" class='material-icons'>volume_up</i>
+					</div>
+					<button id="fullscreen" title="Toggle fullscreen"><i class='material-icons'>fullscreen</i></button>
+				</div>
+			</div>
+		</div>
+		</div>
+		<audio id="page-audio-obj" preload="true">
+			<source src="data/media.mp3">
+		</audio>
+		<div id="slidesContainer" style="display: none;">
+		{{#each slides}}
+		<div data-slide="{{@index}}"{{#if @first}} class="current"{{/if}} data-fileid="{{fileid}}" data-title="{{lookup ../slidePageNames @index}}" data-cue="{{lookup ../cues @index}}"></div>
+		{{/each}}
+		</div>
+		<script type="text/javascript">
+		!function(t,e){"use strict";"object"==typeof module&&"object"==typeof module.exports?module.exports=e(t,document):"function"==typeof define&&define.amd?define(null,function(){e(t,document)}):t.rangetouch=e(t,document)}("undefined"!=typeof window?window:this,function(t,e){"use strict";function n(t){return t instanceof HTMLElement&&t.classList.contains(l.selectors.disabled)}function o(t,e,n){t.addEventListener(e,n,!1)}function i(t){var e=(""+t).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);return e?Math.max(0,(e[1]?e[1].length:0)-(e[2]?+e[2]:0)):0}function u(t,e){if(e<1){var n=i(e);return parseFloat(t.toFixed(n))}return Math.round(t/e)*e}function r(t){var e,n=t.target,o=t.changedTouches[0],i=parseFloat(n.getAttribute("min"))||0,r=parseFloat(n.getAttribute("max"))||100,a=parseFloat(n.getAttribute("step"))||1,c=r-i,s=n.getBoundingClientRect(),d=100/s.width*(l.thumbWidth/2)/100;return e=100/s.width*(o.clientX-s.left),e<0?e=0:e>100&&(e=100),e<50?e-=(100-2*e)*d:e>50&&(e+=2*(e-50)*d),i+u(c*(e/100),a)}function a(t){l.enabled&&"range"===t.target.type&&!n(t.target)&&(t.preventDefault(),t.target.value=r(t),s(t.target,t.type===l.events.end?"change":"input"))}function c(){o(e.body,l.events.start,a),o(e.body,l.events.move,a),o(e.body,l.events.end,a)}function s(t,e,n){t.dispatchEvent(new CustomEvent(e,n))}function d(){return[l.selectors.range,":not(.",l.selectors.disabled,")"].join("")}var l={enabled:!0,selectors:{range:'[type="range"]',disabled:"rangetouch--disabled"},thumbWidth:15,events:{start:"touchstart",move:"touchmove",end:"touchend"}};return function(){if("ontouchstart"in e.documentElement){for(var t=e.querySelectorAll(d()),n=t.length-1;n>=0;n--)t[n].style.touchAction="manipulation",t[n].style.webkitUserSelect="none";c()}}(),{set:function(t,e){l[t]=e}}}),function(){"use strict";function t(t,e){e=e||{bubbles:!1,cancelable:!1,detail:void 0};var n=document.createEvent("CustomEvent");return n.initCustomEvent(t,e.bubbles,e.cancelable,e.detail),n}if("function"==typeof window.CustomEvent)return!1;t.prototype=window.Event.prototype,window.CustomEvent=t}();
+			var domReady=function(d){var b=!1,e=function(){document.addEventListener?(document.removeEventListener("DOMContentLoaded",a),window.removeEventListener("load",a)):(document.detachEvent("onreadystatechange",a),window.detachEvent("onload",a))},a=function(){b||!document.addEventListener&&"load"!==event.type&&"complete"!==document.readyState||(b=!0,e(),d())};if("complete"===document.readyState)d();else if(document.addEventListener)document.addEventListener("DOMContentLoaded",a),window.addEventListener("load",
+			a);else{document.attachEvent("onreadystatechange",a);window.attachEvent("onload",a);var c=!1;try{c=null==window.frameElement&&document.documentElement}catch(g){}c&&c.doScroll&&function f(){if(!b){try{c.doScroll("left")}catch(a){return setTimeout(f,50)}b=!0;e();d()}}()}};
+			function debounce(b,f,c){var a;return function(){var d=this,e=arguments,g=c&&!a;clearTimeout(a);a=setTimeout(function(){a=null;c||b.apply(d,e)},f);g&&b.apply(d,e)}};
+
+			/* https://github.com/sindresorhus/screenfull.js/ | v3.3.2 - 2017-10-27 | (c) Sindre Sorhus; MIT License */
+			!function(){"use strict";var a="undefined"!=typeof window&&void 0!==window.document?window.document:{},b="undefined"!=typeof module&&module.exports,c="undefined"!=typeof Element&&"ALLOW_KEYBOARD_INPUT"in Element,d=function(){for(var b,c=[["requestFullscreen","exitFullscreen","fullscreenElement","fullscreenEnabled","fullscreenchange","fullscreenerror"],["webkitRequestFullscreen","webkitExitFullscreen","webkitFullscreenElement","webkitFullscreenEnabled","webkitfullscreenchange","webkitfullscreenerror"],["webkitRequestFullScreen","webkitCancelFullScreen","webkitCurrentFullScreenElement","webkitCancelFullScreen","webkitfullscreenchange","webkitfullscreenerror"],["mozRequestFullScreen","mozCancelFullScreen","mozFullScreenElement","mozFullScreenEnabled","mozfullscreenchange","mozfullscreenerror"],["msRequestFullscreen","msExitFullscreen","msFullscreenElement","msFullscreenEnabled","MSFullscreenChange","MSFullscreenError"]],d=0,e=c.length,f={};d<e;d++)if((b=c[d])&&b[1]in a){for(d=0;d<b.length;d++)f[c[0][d]]=b[d];return f}return!1}(),e={change:d.fullscreenchange,error:d.fullscreenerror},f={request:function(b){var e=d.requestFullscreen;b=b||a.documentElement,/ Version\/5\.1(?:\.\d+)? Safari\//.test(navigator.userAgent)?b[e]():b[e](c&&Element.ALLOW_KEYBOARD_INPUT)},exit:function(){a[d.exitFullscreen]()},toggle:function(a){this.isFullscreen?this.exit():this.request(a)},onchange:function(a){this.on("change",a)},onerror:function(a){this.on("error",a)},on:function(b,c){var d=e[b];d&&a.addEventListener(d,c,!1)},off:function(b,c){var d=e[b];d&&a.removeEventListener(d,c,!1)},raw:d};if(!d)return void(b?module.exports=!1:window.screenfull=!1);Object.defineProperties(f,{isFullscreen:{get:function(){return Boolean(a[d.fullscreenElement])}},element:{enumerable:!0,get:function(){return a[d.fullscreenElement]}},enabled:{enumerable:!0,get:function(){return Boolean(a[d.fullscreenEnabled])}}}),b?module.exports=f:window.screenfull=f}();
+			// scorm 1.2 & 2004 combined functions
+			function learnerWillReturn(a){"API_1484_11"==_sAPI?a?scormSetValue("cmi.exit","suspend"):scormSetValue("cmi.exit","normal"):"API"==_sAPI&&(a?scormSetValue("cmi.core.exit","suspend"):scormSetValue("cmi.core.exit",""))}
+			function isFirstLaunch(){if("API_1484_11"==_sAPI)var a=scormGetValue("cmi.entry");else if("API"==_sAPI)a=scormGetValue("cmi.core.entry");else return!0;return"ab-initio"!=a?!1:!0}
+			function startSessionTime(){return _timeSessionStart=new Date}
+			function setSessionTime(a){var b=(new Date).getTime();a=Math.round((b-a)/1E3);a=formatTime(a);"API_1484_11"==_sAPI?scormSetValue("cmi.session_time",a):"API"==_sAPI&&scormSetValue("cmi.core.session_time",a)}
+			function getBookmark(){return"API_1484_11"==_sAPI?scormGetValue("cmi.location"):"API"==_sAPI?scormGetValue("cmi.core.lesson_location"):""}
+			function setBookmark(a){"API_1484_11"==_sAPI?scormSetValue("cmi.location",a+""):"API"==_sAPI&&scormSetValue("cmi.core.lesson_location",a+"")}
+			function getSuspendData(){return"API_1484_11"==_sAPI||"API"==_sAPI?scormGetValue("cmi.suspend_data"):""}
+			function setSuspendData(a){"API_1484_11"!=_sAPI&&"API"!=_sAPI||scormSetValue("cmi.suspend_data",a+"")}
+			function setCompletionStatus(a){if("API_1484_11"==_sAPI)scormSetValue("cmi.completion_status",a+"");else if("API"==_sAPI&&("completed"==a||"incomplete"==a||"not attempted"==a)){var b=scormGetValue("cmi.core.lesson_status");"passed"==b||"failed"==b?"incomplete"!=a&&"not attempted"!=a||scormSetValue("cmi.core.lesson_status",a+""):scormSetValue("cmi.core.lesson_status",a+"")}}
+			function getCompletionStatus(){if("API_1484_11"==_sAPI)return scormGetValue("cmi.completion_status");if("API"==_sAPI){var a=scormGetValue("cmi.core.lesson_status");return"passed"==a||"failed"==a?"completed":a}return"not attempted"}
+			function setPassFail(a){"API_1484_11"==_sAPI?scormSetValue("cmi.success_status",a+""):"API"==_sAPI&&scormSetValue("cmi.core.lesson_status",a+"")}
+			function setScore(a){if("API_1484_11"==_sAPI)scormSetValue("cmi.score.scaled",a+"");else if("API"==_sAPI){scormSetValue("cmi.core.score.min","0");scormSetValue("cmi.core.score.max","100");var b=100*a;100<b&&(b=100);0>a-0?scormSetValue("cmi.core.score.raw","0"):scormSetValue("cmi.core.score.raw",Math.round(b)+"")}}
+			function scormInitialize(){var a=getAPI();if(null==a)return"false";a="API"==_sAPI?a.LMSInitialize(""):a.Initialize("");return a}
+			function scormTerminate(){var a=getAPI();if(null==a)return"false";a="API"==_sAPI?a.LMSFinish(""):a.Terminate("");return a}
+			function scormCommit(){var a=getAPI();if(null==a)return"false";a="API"==_sAPI?a.LMSCommit(""):a.Commit("");return a}
+			function scormGetValue(a){var b=getAPI();if(null==b)return"";if("API"==_sAPI)var c=b.LMSGetValue(a),b=b.LMSGetLastError();else c=b.GetValue(a),b=b.GetLastError();return"0"!=b?"":c}
+			function scormSetValue(a,b){var c=getAPI();if(null==c)return"true";c="API"==_sAPI?c.LMSSetValue(a,b):c.SetValue(a,b);return c}
+			function formatTime(a){var b=Math.floor(a/3600);a-=3600*b;var c=Math.floor(a/60);a-=60*c;return"API_1484_11"==_sAPI?"PT"+b+"H"+c+"M"+a+"S":"API"==_sAPI?(10>b&&(b="0"+b),10>c&&(c="0"+c),10>a&&(a="0"+a),b+":"+c+":"+a):""}
+			function findAPI(a,b){var c=0;try{for(;null==a[b]&&null!=a.parent&&a.parent!=a;){c++;if(7<c)return console.log("findAPI gave up",a,b),alert("Error finding API -- too deeply nested."),null;a=a.parent}}catch(d){return console.log("findAPI forced to stop at domain boundary",a,b),null}return a[b]}
+			function getAPI(){if(null!=apiHandle)return apiHandle;var a=findAPI(window,"API_1484_11");null==a&&null!=window.opener&&"undefined"!=typeof window.opener&&(a=findAPI(window.opener,"API_1484_11"));null==a?(a=findAPI(window,"API"),null==a&&null!=window.opener&&"undefined"!=typeof window.opener&&(a=findAPI(window.opener,"API")),null!=a&&(_sAPI="API")):_sAPI="API_1484_11";{{#compare api "!=" "none"}} null==a&&alert("Unable to find an API adapter");{{/compare}}return a};
+			Math.clip = function(n,i,x){return Math.max(i,Math.min(n,x));}
+
+			scormInitialize();
+
+			// Selectors
+			var	HtmlAudioObject = document.getElementById("page-audio-obj"),
+				HtmlFrameObject = document.getElementById("presentation"),
+				ProgressPlayed = document.querySelector(".progress-bar-played"),
+				CurrentTime = document.querySelector(".current-time"),
+				PreviousSlide = document.querySelector("#prevSlide"),
+				PlayPause = document.querySelector("#playPause"),
+				NextSlide = document.querySelector("#nextSlide"),
+				Fullscreen = document.getElementById("fullscreen"),
+				AudioVolume = document.getElementById("volumeSlider"),
+				ChapterContainer = document.getElementById("slidesContainer"),
+				Chapters = ChapterContainer.querySelectorAll("div");
+
+
+			var _bDebug=0,_sAPI="",
+				apiHandle = (parent && parent !== self && parent.ninjaApiProxy) ? parent.ninjaApiProxy : getAPI(),
+				_timeSessionStart=null,
+				_timeout,
+				_now,
+				_unloaded = false,
+				_currentSlide = 0,
+				Course = {
+					Required: {{score}},
+					Duration: {{duration}},
+					_timestamp: 0,
+					Score: 0,
+					Completed: false,
+					SetComplete: function () {
+						if (!Course.Completed) {
+							learnerWillReturn(false);
+							if ("API_1484_11"==_sAPI) setPassFail("passed");
+							setCompletionStatus("completed");
+							setScore(Course.Score/100);
+							scormCommit();
+							Course.Completed = true;
+							return true;
+						}
+						return false;
+					},
+					PlayerState: "not-started"
+				};
+
+			Object.defineProperty(HtmlAudioObject, "begun", {
+				get: function() {
+					return !!(this.currentTime > 0 && !this.ended && this.readyState > 2);
+				}
+			});
+
+			Object.defineProperty(HtmlAudioObject, "playing", {
+			    get: function() {
+			        return !!(this.currentTime > 0 && !this.paused && !this.ended && this.readyState > 2);
+			    }
+			});
+
+			Object.defineProperty(Course, "Seconds", {
+				configurable: false,
+				get: function () {
+					return typeof _timestamp !== "undefined" ? _timestamp : 0;
+				},
+				set: function (value) {
+					// var totaltime = scormGetValue("cmi.total_time");
+					_timestamp = value; //audio scrub timestamp
+					setBookmark("" + Math.round(value)); // persist where we are up to; but commit later
+					if (!isFirstLaunch() && getCompletionStatus() == "completed") {
+						Course.Completed = true; //  bypass setComplete (reset score)
+					}
+					var newScore = (100 / Chapters.length) * (~~ChapterContainer.querySelector(".current").dataset.slide + 1);
+					if (newScore > getSuspendData()) {
+						Course.Score =  newScore;
+						setSuspendData(Course.Score);
+						setScore(Course.Score / 100);
+					}
+					if (Course.Score >= Course.Required && getCompletionStatus() !== "completed") {
+						Course.SetComplete(); // true if record was changed
+					}
+				}
+			});
+
+			// public method called by body unload event(s)
+			function doUnload() {
+				if (!_unloaded) {
+					scormCommit();
+					setSessionTime(_timeSessionStart);
+					scormTerminate();
+					_unloaded = true;
+				}
+			}
+
+			// Traverse through embeds and add full screen attributes
+			function setIframesFs() {
+				var context = window.frameElement;
+				while (context != null) {
+					context.setAttribute('allowfullscreen', 'true');
+					context.setAttribute('webkitallowfullscreen', 'true');
+					context.setAttribute('mozallowfullscreen', 'true');
+					context = context.ownerDocument.defaultView.frameElement;
+				}
+			}
+
+			function togglePlay() {
+				setIframesFs();
+				if (!HtmlAudioObject.begun) {
+					HtmlAudioObject.play();
+					PlayPause.querySelector('i').textContent = "pause"
+				} else if (HtmlAudioObject.playing) {
+					HtmlAudioObject.pause();
+					PlayPause.querySelector('i').textContent = "play_arrow";
+				} else if (!HtmlAudioObject.playing) {
+					HtmlAudioObject.play();
+					PlayPause.querySelector('i').textContent = "pause";
+				}
+			}
+
+			HtmlAudioObject.volume = ({{volume}} / 100);
+			HtmlAudioObject.addEventListener("timeupdate", _do_time_update, false);
+			HtmlAudioObject.addEventListener("ended", function (e) {
+				PlayPause.querySelector('i').textContent = "play_arrow";
+				Course.PlayerState = "ended";
+			});
+
+			AudioVolume.addEventListener("input", function(e) {
+				HtmlAudioObject.volume = ~~e.target.value/100;
+			}, false);
+
+			PlayPause.addEventListener("click", function (e) {
+				togglePlay();
+			}, false);
+
+			PreviousSlide.addEventListener("click", function(e) {
+				if (_currentSlide > 0) {
+					_currentSlide--;
+					HtmlFrameObject.setAttribute("src", "data/" + Chapters[_currentSlide].dataset.fileid + ".html");
+					HtmlAudioObject.currentTime = Chapters[_currentSlide].dataset.cue;
+					CurrentTime.textContent = HHMMSS(HtmlAudioObject.currentTime);
+					setProgressBar();
+				}
+			});
+
+			NextSlide.addEventListener("click", function(e) {
+				if (_currentSlide < Chapters.length - 1) {
+					_currentSlide++;
+					HtmlFrameObject.setAttribute("src", "data/" + Chapters[_currentSlide].dataset.fileid + ".html");
+					HtmlAudioObject.currentTime = Chapters[_currentSlide].dataset.cue;
+					CurrentTime.textContent = HHMMSS(HtmlAudioObject.currentTime);
+					setProgressBar();
+				}
+			});
+			if (!screenfull.enabled) {
+				screenfull.on('error', function(e) {
+					console.warn('Failed to enable fullscreen: ', e);
+				});
+				try {
+					setIframesFs();
+				} catch(error) {
+					console.log("Couldn't enable fullscreen: " + error);
+				}
+			}
+			if (screenfull.enabled) {
+				Fullscreen.addEventListener("click", function(e) {
+					// var requestFullScreen = HtmlFrameObject.requestFullscreen || HtmlFrameObject.msRequestFullscreen || HtmlFrameObject.mozRequestFullScreen || HtmlFrameObject.webkitRequestFullscreen;
+					// requestFullScreen.call(HtmlFrameObject);
+					screenfull.toggle(document.querySelector('content-wrapper'));
+				});
+			} else {
+				Fullscreen.style.display = "none";
+			}
+
+			AudioVolume.addEventListener("input", function(e) {
+				HtmlAudioObject.volume = ~~e.target.value/100;
+			}, false);
+
+			document.addEventListener("keydown", function(e) {
+				e.preventDefault();
+				if (e.code === "Space") {togglePlay();}
+			});
+
+			function HHMMSS(seconds) {
+			    var date = new Date(1970,0,1);
+			    date.setSeconds(seconds);
+			    result = (date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1"));
+			    return result.replace(/^00:/,"");
+			}
+
+			function setProgressBar() {
+				var percent = HtmlAudioObject.currentTime / HtmlAudioObject.duration * 100;
+				ProgressPlayed.style.width = percent + "%";
+			}
+
+			function _do_time_update(e) {
+				CurrentTime.textContent = HHMMSS(HtmlAudioObject.currentTime);
+				Course.Seconds = HtmlAudioObject.currentTime;
+				setProgressBar();
+				for (var i=0; i < Chapters.length; i++) {
+					var start = Chapters[i].dataset.cue,
+						end = Chapters[i+1] ? Chapters[i+1].dataset.cue : Course.Duration;
+						if (HtmlAudioObject.currentTime >= start && HtmlAudioObject.currentTime <= end) {
+							if (!Chapters[i].classList.contains("current")) {
+								_currentSlide = i;
+								HtmlFrameObject.setAttribute("src", "data/" + Chapters[i].dataset.fileid + ".html");
+								[].forEach.call(Chapters,function(n) {
+									n.classList[n===Chapters[i]?"add":"remove"]("current");
+								});
+							}
+						}
+				}
+			}
+
+			domReady(function () {
+				startSessionTime();
+				setCompletionStatus("incomplete");
+				learnerWillReturn(true);
+				scormCommit();
+				document.querySelector('.total-time').textContent = HHMMSS(Course.Duration);
+
+				var bm = ~~getBookmark();
+				if (!isFirstLaunch() && bm>0) {
+					HtmlAudioObject.currentTime = bm;
+					_do_time_update();
+				}
+			});
+
+		</script>
+	</body>
+</html>

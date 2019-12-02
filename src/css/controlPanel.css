@@ -1,0 +1,384 @@
+.control-panel {
+	position: absolute;
+	width: 100%;
+	height: 30.5%;/*26.5vh;*/
+	bottom: 0px;
+
+	background-color: var(--panel-main);
+}
+
+.control-panel .material-icons {
+	color: var(--panel-font);
+	font-size: 36px;
+}
+
+#waveContainer {
+	height: 75%;
+	width: 100%;
+	position: relative;
+}
+.waveform {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+.zoom-container {
+	position: relative;
+	height: 75%;
+	width: 100%;
+	border-bottom: 3px solid #a5a5a5;
+}
+.overview-container {
+	position: relative;
+	height: 25%;
+	width: 100%;
+}
+
+#chapterTitles {
+	white-space: nowrap;
+	overflow: hidden;
+	height: 10%;
+}
+#titlesContainer {
+	height: 100%;
+	white-space: nowrap;
+	position: relative;
+}
+.chapter-title {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 4;
+	font-weight: 500;
+	padding-left: 3px;
+	color: var(--panel-font);
+}
+.chapter-title.editing {
+    box-shadow: inset 0px 0px 1px 2px rgba(33, 104, 212, 0.99);
+}
+.chapter-title > span {
+    position: absolute;
+	top: 50%;
+	width: 100%;
+    transform: translate(0,-50%);
+    overflow: hidden;
+	overflow-wrap: normal;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	outline: 0px transparent;
+}
+.chapter-title > span.editing {
+    background-color: rgba(255,255,255,0.25);
+}
+.chapter-title.active {
+	background-color: #b68d2c;
+	color: white;
+}
+.chapter-title.inactive {
+	background-color: rgb(28, 92, 151);;
+}
+
+.timestamp {
+	float: right;
+	width: 20px;
+	height: 5px;
+	top: 80%;
+	background-color: red;
+}
+
+.wave-loading-container {
+	display: none;
+}
+.wave-loading-container.visible {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.wave-loading {
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	top: 40px;
+	transform-origin: 50% 50%;
+	-webkit-animation-name: loading;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: loading;
+	-moz-animation-duration: 5s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
+	-ms-animation-name: loading;
+	-ms-animation-duration: 5s;
+	-ms-animation-iteration-count: infinite;
+	-ms-animation-timing-function: linear;
+}
+@keyframes loading {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.wave-loading-container > p {
+	display: inline-block;
+	position: relative;
+	left: 45%;
+	top: 57px;
+	color: var(--panel-font);
+}
+
+#topBar {
+	position: relative;
+	display: flex;
+	height: 15%;
+}
+[class^="pn-zoom"], [class^="pn-volume"] {
+  position: relative;
+  top: 5px;
+  font-size: 100%;
+  text-shadow: none;
+}
+#waveformZoom,
+#waveformVolume{
+	box-shadow: none;
+	width: 130px;
+	border-radius: 2px;
+}
+
+#waveformZoom {
+    transform: rotate(180deg);
+}
+
+#zoom {
+	position: relative;
+	display: flex;
+	margin: 0 20px;
+}
+#vol {
+	position: relative;
+	display: flex;
+	margin: 0 35px;
+}
+#zoom input,
+#vol input {
+    position: relative;
+    top: 5px;
+    height: 25px;
+    background: none;
+}
+#playPause {
+	margin: 0 5px;
+}
+.wave-timestamp {
+	position: relative;
+	width: fit-content;
+	height: fit-content;
+	width: -moz-fit-content;
+    height: -moz-fit-content;
+	top: 6px;
+	right: 5px;
+	color: var(--panel-font);
+}
+#playPauseButton {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    width: -moz-fit-content;
+    height: -moz-fit-content;
+    color: black;
+
+}
+#playPauseButton[tooltip]::before {
+}
+#playPauseButton[tooltip]::after {
+	left: -32px;
+    top: -68px;
+}
+
+#pointControl {
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+#pointControl a {
+	margin: 0 10px;
+}
+
+/*#chapReset {
+	display: block;
+	position: relative;
+	color: black;
+	margin: 0 auto;
+	width: fit-content;
+	height: fit-content;
+	width: -moz-fit-content;
+    height: -moz-fit-content;
+}*/
+#wsHelp {
+	display: block;
+	position: relative;
+	color: black;
+	margin: 0 auto 10px auto;
+	width: fit-content;
+	height: fit-content;
+	width: -moz-fit-content;
+    height: -moz-fit-content;
+}
+#wsHelp span {
+	position: relative;
+	top: -1px;
+}
+.pn-help,
+.pn-reset {
+    position: relative;
+    font-size: 175%;
+    top: 2px;
+}
+/* -------------------------------------------
+				Help Tooltips 
+---------------------------------------------*/
+[ws-tooltip]::before {
+    content: "";
+    position: absolute;
+
+    border-width: 4px 6px 0 6px;
+    border-style: solid;
+    border-color: #fcb409 transparent transparent transparent;
+    z-index: 100;
+
+    opacity: 0;
+}
+[ws-tooltip]::after {
+    content: attr(ws-tooltip);
+    position: absolute;
+
+    /*background: rgba(0,0,0,0.7);*/
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 300;
+    background: white;
+    text-align: center;
+    color: #000;
+    padding:4px 2px;
+    font-size: 12px;
+    min-width: 80px;
+    border-radius: 5px;
+    border: 3px solid #fcb409;
+    pointer-events: none;
+
+    opacity: 0;
+    z-index: 99; /*shh*/
+}
+.ws-tooltip-active::before,
+.ws-tooltip-active::after {
+	opacity: 1;
+}
+#manualCue>span::before {
+    top: 0px;
+    right: 83px;
+}
+#manualCue>span::after {
+    top: -60px;
+    right: 56px;
+    width: 146px;
+    height: 60px;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+#chapReset>span::before {
+	right: 20px;
+}
+#chapReset>span::after {
+    width: 90px;
+	right: -35px;
+    top: -50px;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+#zoom::before {
+    top: -5px;
+    right: 85px;
+}
+#zoom::after {
+    top: -64px;
+    width: 100px;
+    left: 62px;
+}
+#playPauseButton>span::before {
+    right: 17px;
+    top: -5px;
+}
+#playPauseButton>span::after {
+    right: -30px;
+    top: -55px;
+    width: 100px;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+#vol::before {
+    right: 63px;
+    top: -5px;
+}
+#vol::after {
+	right: 41px;
+    top: -94px;
+    width: 100px;
+}
+#wsHelp>span::before {
+    right: 12px;
+    top: -3px;
+}
+#wsHelp>span::after {
+	right: -33px;
+    top: -53px;
+    width: 100px;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+#chapterTitles::before {
+    top: 73px;
+    left: 21px;
+    transform: rotate(180deg);
+}
+#chapterTitles::after {
+    top: 77px;
+    left: 15px;
+    width: 102px;
+    white-space: normal;
+}
+.zoom-container::before {
+	top: 115px;
+    left: 387px;
+}
+.zoom-container::after {
+	top: 41px;
+    left: 320px;
+    width: 150px;
+}
+.overview-container::before {
+    top: 5px;
+    left: 827px;
+}
+.overview-container::after {
+	top: -69px;
+    left: 641px;
+    width: 241px;
+}
+
+
+
+@media (max-width: 1280px), (max-height: 800px) {
+	.control-panel .material-icons {
+		font-size: 30px;
+	}
+	#zoom input, #vol input {
+		top: 2px;
+	}
+	.chapter-title {
+	    font-size: 14px;
+	}
+}
