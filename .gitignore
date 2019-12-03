@@ -1,0 +1,6 @@
+composer.lock
+vendor/
+public/app/
+src/css/*.min.*.css
+src/js/*.min.*.js
+src/js/*.map
