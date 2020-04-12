@@ -135,7 +135,7 @@ $(function() {
 						}
 
 					}
-					
+
 				}
 			})
 		});
@@ -338,7 +338,7 @@ $(function() {
 					}*/
 					recordingTimerDisplay.innerHTML = HHMMSS(_recordingTimestamp / 1000);
 				};
-				
+
 				// clicking record button changes it to stop
 				toggleRecording.addEventListener("click", function () {
 					deleteRecording.classList.remove("visible");
@@ -424,11 +424,11 @@ $(function() {
 			}
 			toggleRecording.addEventListener("click", recordingPrompt, false);
 
-			
+
 					/*
 			navigator.mediaDevices.enumerateDevices()
 				.then(function(devices) {
-					
+
 					return devices.some(function(val) {
 						return val.kind === "audioinput" && val.label !== ""
 					})
