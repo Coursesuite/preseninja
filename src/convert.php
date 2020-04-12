@@ -15,7 +15,7 @@ $fileUrl = 'data:' . $_FILES["file"]["type"] . ';base64,' . base64_encode($conte
 // $localFile = $_FILES[$fileKey]['tmp_name'];
 // $stream = fopen($localFile, 'r');
 
-// // Create a curl handle to upload to the file server     
+// // Create a curl handle to upload to the file server
 //  $ch = curl_init($fileServer);
 // // Send a PUT request
 // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
@@ -27,8 +27,7 @@ $fileUrl = 'data:' . $_FILES["file"]["type"] . ';base64,' . base64_encode($conte
 // curl_setopt($ch, CURLOPT_READFUNCTION, function($ch, $fd, $length) use ($stream) {
 //     return fread($stream, $length) ? '';
 // });
-
-curl_exec($ch);
+// curl_exec($ch);
 
 try {
     $process = $api->createProcess([
