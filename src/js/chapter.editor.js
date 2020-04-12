@@ -280,7 +280,7 @@ var ChapterEditor = (function (Peaks) {
 		}, 1); // peaks event timing is jank, use settimeout to make sure resize is really done
 	}
 
-	// Setup appropriate zoom levels 
+	// Setup appropriate zoom levels
 	var createZoomLevels = function() {
 		var totalSamples = peaks.waveform.waveformZoomView._scale * peaks.waveform.waveformZoomView.pixelLength;
 		var fit = totalSamples / peaks.waveform.waveformZoomView.width;
@@ -397,7 +397,7 @@ var ChapterEditor = (function (Peaks) {
 			EDITING_TITLE.style.whiteSpace = "nowrap";
 			EDITING_TITLE.classList.remove('editing');
 			EDITING_TITLE.parentElement.classList.remove('editing');
-			EDITING_TITLE = null;		
+			EDITING_TITLE = null;
 		}
 	}
 	// Discards title changes when editing
@@ -408,7 +408,7 @@ var ChapterEditor = (function (Peaks) {
 		EDITING_TITLE.style.whiteSpace = "nowrap";
 		EDITING_TITLE.classList.remove('editing');
 		EDITING_TITLE.parentElement.classList.remove('editing');
-		EDITING_TITLE = null;		
+		EDITING_TITLE = null;
 	}
 	// Deletes all titles
 	var deleteAllTitles = function() {
@@ -416,7 +416,7 @@ var ChapterEditor = (function (Peaks) {
 			titlesContainer.removeChild(titlesContainer.lastChild);
 		}
 	}
-	// Align chapter title with point or align all titles with points if point==null 
+	// Align chapter title with point or align all titles with points if point==null
 	var alignChapterTitles = function(point=null) {
 		if (point === null) {
 			for (var i = 0; i < peaks.points.getPoints().length; i++) {
@@ -452,7 +452,7 @@ var ChapterEditor = (function (Peaks) {
 			// First point
 			if (pointIndex == 0) {
 				// Active chapter
-				var titleWidth = pointPos; 
+				var titleWidth = pointPos;
 				// Next chapter
 				var nextPercentPos = peaks.points.getPoint('peaks.point.' + (pointIndex+1)).time / peaks.player.getDuration();
 				var nextPointPos = nextPercentPos * peaks.waveform.waveformZoomView.pixelLength;
@@ -519,7 +519,7 @@ var ChapterEditor = (function (Peaks) {
 		lastActive = activeChap;
 	}
 
-	// Constrain chapters to min width and prevent overlap 
+	// Constrain chapters to min width and prevent overlap
 	var constrainChapters = function(point) {
 		var pointIndex = ~~(point.id.substring(point.id.lastIndexOf('.') + 1));
 		if (pointIndex == 0) {
@@ -530,7 +530,7 @@ var ChapterEditor = (function (Peaks) {
 			if (point.time >= peaks.points.getPoint('peaks.point.' + (pointIndex+1)).time - chapMinWidth) {
 				point.time = peaks.points.getPoint('peaks.point.' + (pointIndex+1)).time - chapMinWidth;
 			}
-		} 
+		}
 		else if (pointIndex + 1 == peaks.points.getPoints().length) {
 			if (point.time <= peaks.points.getPoint('peaks.point.' + (pointIndex-1)).time + chapMinWidth) {
 				point.time = peaks.points.getPoint('peaks.point.' + (pointIndex-1)).time + chapMinWidth;
@@ -584,7 +584,7 @@ var ChapterEditor = (function (Peaks) {
 				}
 			} // javascript cant do maths so this is broken atm
 			else if (time > props.cues[i] && time < props.cues[i+1] && activeChap !== i) {
-				
+
 				activeChap = i;
 				UI.Dom.Slide.Preview(i);
 				return;
@@ -702,17 +702,17 @@ var ChapterEditor = (function (Peaks) {
 				// arraybuffer: wavedataUri
 				// json: 'wave.json',
 			// },
-			waveformBuilderOptions: { 
-				scale: 8,			    
+			waveformBuilderOptions: {
+				scale: 8,
 				amplitude_scale: 0.7,
-			},			  			   
-			zoomLevels: [8],		  
+			},
+			zoomLevels: [8],
 			height: 50, // Actual height set in css
-			
+
 			// Colours
-			overviewWaveformColor: '#085caa',//'#366b9c'/*getComputedStyle(document.body).getPropertyValue('--panel-hilight')*/,
-			overviewHighlightRectangleColor: '#ffffffab',
-			zoomWaveformColor: '#f0b40f',
+			overviewWaveformColor: 'rgba(255,255,255,.35)',//'#366b9c'/*getComputedStyle(document.body).getPropertyValue('--panel-hilight')*/,
+			overviewHighlightRectangleColor: 'transparent',
+			zoomWaveformColor: 'rgba(31, 234, 234, .85)', //#f0b40f',
 			playheadColor: 'rgba(0, 0, 0, 1)',
 			playheadTextColor: '#FFF',
 			pointMarkerColor: '#FF0000',
@@ -734,7 +734,7 @@ var ChapterEditor = (function (Peaks) {
 			overviewContainer = document.querySelector('.overview-container');
 			overviewContainer.setAttribute('ws-tooltip', 'This is an overview of the full waveform. The highlighted area is displayed above. Click and drag to navigate the waveform and change the displayed area.')
 			loadingIcon.classList.remove("visible");
-			
+
 			localforage.getItem('props')
 			.then(function(p) {
 				peaks.points.add(createPointsFromCues());
@@ -824,7 +824,7 @@ var ChapterEditor = (function (Peaks) {
 			// alignTitlesContainer (ez mode)
 			frameOffset = (frameOffset < 0) ? 0 : frameOffset;
 			titlesContainer.style.left = '-' + frameOffset + 'px';
-			
+
 			stickTitles();
 		});
 		peaks.on('user_seek', function(time) {
@@ -868,11 +868,11 @@ var ChapterEditor = (function (Peaks) {
 		volumeSlider.addEventListener("input", _volListener = function(e) {
 			e.preventDefault(e);
 			audioObj.volume = volumeSlider.value / 100;
-		});	
+		});
 		helpButton.addEventListener("click", _helpListener = function(e) {
 			e.preventDefault();
 			toggleHelp();
-		});	
+		});
 		resetButton.addEventListener("click", _resetListener = function(e) {
 			e.preventDefault();
 			reset();

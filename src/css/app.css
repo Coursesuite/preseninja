@@ -22,7 +22,7 @@
 :root {
 	--banner-height: 115px;
 
-	--panel-main: #3c3b3f;
+	--panel-main: transparent;
 	--panel-hilight: #767676;
 	--panel-font: #c9c9c9;
 }

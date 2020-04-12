@@ -4,32 +4,43 @@ section#sources {
 
 .sources-grid {
 	display: grid;
-	grid-template-columns: 50%;
-	grid-template-rows: 10% 90%;
-	grid-column-gap: 20px;
+
+/* 	grid-template-areas:  "pres-header" "pres-content" "audio-header" "audio-content";
+	grid-template-columns: 1fr;
+	grid-template-rows: 5% 3fr 5% 1fr;
+ */
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 5% 1fr;
+	grid-template-areas: "pres-header audio-header" "pres-content audio-content";
+
+	grid-gap: 10px;
 }
 .slides-heading {
-	grid-column-start: 1;
+	grid-area: pres-header;
+/* 	grid-column-start: 1;
 	grid-row-start: 1;
-	font-size: 32px;
+ */	font-size: 32px;
 	text-align: center;
 }
 .slides-section {
 	height: 100%;
-	grid-column-start: 1;
+	grid-area: pres-content;
+/* 	grid-column-start: 1;
 	grid-row-start: 2;
-}
+ */}
 .audio-heading {
-	grid-column-start: 2;
+	grid-area: audio-header;
+/* 	grid-column-start: 2;
 	grid-row-start: 1;
-	font-size: 36px;
+ */	font-size: 36px;
 	text-align: center;
 }
 .audio-processing {
 	height: 100%;
-	grid-column-start: 2;
+	grid-area: audio-content;
+/* 	grid-column-start: 2;
 	grid-row-start: 2;
-}
+ */}
 .slide-processing {
 	height: 100%;
 }
@@ -37,7 +48,7 @@ section#sources {
 .slides-section,
 .audio-processing {
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.11);
+	background-color: rgb(48, 128, 216);
 }
 
 
@@ -59,9 +70,9 @@ section#sources {
     border: 10px dashed rgba(255, 255, 255, 0.8);
 }
 
-section#sources div[class$='-dropzone'] { 
-	background-color:rgba(255,255,255,0); 
-	transition: background-color .5s ease; 
+section#sources div[class$='-dropzone'] {
+	background-color:rgba(255,255,255,0);
+	transition: background-color .5s ease;
 }
 body.drag-over section#sources div[class$='-dropzone'] { background-color: rgba(255,255,255,.5); }
 
@@ -88,13 +99,16 @@ section#sources > div {
 		padding: 16px;
 		font-size: 24px;
 		border-radius: 4px 4px 0 0;
+		flex: 2;
 	}
 	div[class$='-urlzone'] {
 	    height: 35%;
+	    flex: 1;
 	}
 	div[class$='-cloudzone'] {
 		height: 20%;
 		font-size: 24px;
+		flex: 1;
 	}
 	div[class$='-urlzone'], div[class$='-ready'], div.slide-presentation {
 		/*border: 1px solid rgba(255,255,255,.5);*/
@@ -216,7 +230,10 @@ section#sources > div {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.slide-urlzone > * {
+.slide-urlzone {
+	padding: 0 16px;
+}
+	.slide-urlzone > * {
 		top: 20px;
 		position: relative;
 	}
@@ -230,6 +247,15 @@ section#sources > div {
 	.slide-urlzone textarea:focus {
 		background: rgba(255,255,255,.9);
 		color: black;
+	}
+	.slide-urlzone p {
+		font-size: 24px;
+		margin: 0 0 1rem;
+	}
+	.slide-urlzone small {
+		display: block;
+		opacity: .85;
+		font-size: 16px;
 	}
 
 	.slide-urlzone audio,
@@ -257,7 +283,7 @@ section#sources > div {
 	}
 	.audio-urlzone small {
 		display: block;
-		opacity: .7;
+		opacity: .85;
 		font-size: 16px;
 	}
 	.controls-container {
@@ -459,7 +485,7 @@ p.or > span{
     display: inline-block;
     position: relative;
     height: 1px;
-    border-bottom: 1px dotted #FFF;
+    border-bottom: 1px dashed rgba(255,255,255,.5);
     top: 10px;
 }
 

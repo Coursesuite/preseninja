@@ -180,10 +180,10 @@ a.load {
  *
  */
 
-body.sources  #tabs a[data-tab="sources"]::after  { border-bottom-color: rgb(182, 141, 44); }
-body.slides   #tabs a[data-tab="slides"]::after   { border-bottom-color: rgb(182, 141, 44); }
-body.download #tabs a[data-tab="download"]::after { border-bottom-color: rgb(75, 59, 20); }
-body.design   #tabs a[data-tab="design"]::after   { border-bottom-color: rgb(182, 141, 44); }
+body.sources  #tabs a[data-tab="sources"]::after  { border-bottom-color: rgba(20, 69, 168, 1.00); }
+body.slides   #tabs a[data-tab="slides"]::after   { border-bottom-color: rgba(23, 82, 183, 1.00); }
+body.download #tabs a[data-tab="download"]::after { border-bottom-color: rgba(49, 80, 132, 1.00); }
+body.design   #tabs a[data-tab="design"]::after   { border-bottom-color: rgba(25, 95, 198, 1.00); }
 
 body.sources  section#sources  { display: block; }
 @media (max-height: 599px) {
