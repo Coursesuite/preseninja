@@ -237,7 +237,7 @@ var Downloader = (function () {
 				return Promise.all(promises);
 
 			}).then(function (result) {
-				return fetch("/app/compiled/" + api + ".zip");
+				return fetch("compiled/" + api + ".zip");
 
 			}).then(function (response) {
 				return response.arrayBuffer();

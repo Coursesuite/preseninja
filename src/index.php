@@ -85,7 +85,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 
 		<header id="banner"><div class='cs-banner'><h1><img src='img/microphone.svg' width='40' height='40' title='another CourseSuite app'> Audio <span>Presenter</span></h1></div></header>
 
-		<nav id="tabs">
+		<nav id="tabs" class="ready">
 			<a href="javascript:;" data-tab="sources"><i class="pn-upload"></i> Add sources</a>
 			<a href="javascript:;" data-tab="slides"><i class="pn-fiddle"></i> Slide markers</a>
 			<a href="javascript:;" data-tab="design"><i class="pn-design"></i> Design</a>
@@ -124,6 +124,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 						<span class="dot-border"></span>
 					</p>
 					<div class="slide-urlzone">
+						<p class='ins-desc visible'>Insert from URL<small>Use an url (e.g. Google Slides sharing link, etc)</small></p>
 						<textarea class="url-box" placeholder="Insert/paste sharable file URL"></textarea><button class="button-secondary pure-button"><i class="fa fa-upload"></i> Load</button>
 					</div>
 					<p class="or">
@@ -181,7 +182,13 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 					<span class="dot-border"></span>
 				</p>
 				<div class="audio-urlzone">
-					<p class='rec-desc visible'>Record<small>Record a lecture in app with your computer microphone</small></p>
+					<p class='rec-desc visible'>Record from your microphone<small>Use your computer microphone to record slide audio.
+						<ol>
+							<li>Drop your presentation on first and wait for it to appear.</li>
+							<li>Press record and follow the prompts to allow microphone access.</li>
+							<li>Use the Left and Right arrow keys to change slides. The position will be recorded.</li>
+							<li>Once done, press 'Use Audio' to move to the Slide Markers tab.</li>
+						</ol></small></p>
 					<p class='rec-help'><small>If your presentation is uploaded, you can press the right arrow to set cue points</small></p>
 					<div class="controls-container">
 						<button data-action="record" class="button-secondary pure-button"><span><i class='pn-mic'></i>Record</span></button>
@@ -237,11 +244,11 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 					<div id="topBar">
 						<div id="pointControl">
 						<a id="manualCue" href="javascript:;">
-							<span class="material-icons" ws-tooltip="Enter manual cue mode, deleting all slide markers. Press Enter to add slide marker.">tune</span>
+							<span ws-tooltip="Delete all markers. Drag cue, then press Enter to add marker.">Manual mode</span>
 						</a>
 						<a id="chapReset" href="javascript:;">
-						<span class="material-icons" ws-tooltip="Reset editor to its default state">restore</span>
-					</a>
+							<span ws-tooltip="Reset editor to its default state">Reset markers</span>
+						</a>
 					</div>
 						<div id="zoom" ws-tooltip="Adjust to zoom in and out of waveform">
 						<span class="material-icons">zoom_out</span>
@@ -260,7 +267,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 						<span class="material-icons">volume_up</span>
 					</div>
 					<a id="wsHelp" href="javascript:;">
-						<span class="material-icons" ws-tooltip="Click to show/hide help popups">help</span>
+						<span ws-tooltip="Click to show/hide help popups">Toggle help</span>
 					</a>
 					</div>
 					<div id="chapterTitles" ws-tooltip="Double click slide titles to edit. Enter to save. Escape to cancel.">
@@ -273,28 +280,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 					<div id="waveContainer">
 
 					</div>
-					<!--
-				<div id="waveSurfer" class="wave-surfer" ws-tooltip="Click on chapter names to rename them. Click away or press enter to save. Press escape to cancel.">
-
 				</div>
-				<div id="waveTimeline" class="wave-timeline" ws-tooltip="The timeline shows how far along the track you are. Useful for lining up chapters!"></div>
-				<div id="scrubTrack" class="scrub-track" ws-tooltip="Click on the scrub track or waveform to navigate the audio">
-					<div id="trackStart">0</div>
-					<div id="scrubTrackPlayed" class="scrub-track-played"></div>
-					<div id="scrubThumb" class="scrub-thumb"><div id="playHead"></div></div>
-					<div id="trackEnd">100</div>
-				</div>
-				-->
-				</div>
-				<!--
-				<div style="display: none;">
-				<p class="slide-webvtt-text"><a href="#webvtt-editor"><i class="fa fa-expand"></i> Show advanced WebVTT editor</a></p>
-				<div class="slide-webvtt-wrapper" id="webvtt-editor">
-					<div id="webvtt-errors"></div>
-					<textarea placeholder="Chapter information will appear here after slides have been added."></textarea>
-				</div>
-			</div>
-			-->
 		</section>
 
 		<section id="design">
@@ -683,21 +669,6 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 <?php } ?>
 
 			</div>
-
-			<div class="did-you-know">
-				<h3>Did you know?</h3>
-				<p>You can go back and fiddle some more at any time.<br/>Your files will stay loaded until you press reset.</p>
-				<div id="onsell"></div>
-			</div>
-
-			<div style="display: block;margin: 0 auto;" class="survey-button">
-				<button id="surveyButton" onclick="toggleSurvey();"><span>Feedback Survey</span></button>
-			</div>
-			<div class="survey-modal">
-				<div class="survey-bar"><i class="pn-close" onclick="toggleSurvey();"></i></div>
-				<iframe id="surveyFrame" src="https://docs.google.com/forms/d/e/1FAIpQLScJX6nmy-T4nySdrlRDzNTnesx2wXk4_en09Y_IWhmLGgZ_4Q/viewform?embedded=true" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-			</div>
-
 		</section>
 
 	</main>
@@ -737,17 +708,17 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 	<script type="text/javascript" src="js/localforage-1.5/localforage.min.js"></script>
 	<script type="text/javascript" src="js/webvtt_parser.js"></script>
 	<script type="text/javascript" src="js/jquery.textarea.linenumbers.js"></script>
-	<script type="text/javascript" src="js/lib.js"></script>
+	<script type="text/javascript" src="js/app.lib.js"></script>
 	<script type="text/javascript" src="js/templates.js"></script>
 	<script type="text/javascript" src="js/svgLoader.js"></script>
 	<script type="text/javascript" src="js/uiProgressButton.js"></script>
 	<script type="text/javascript" src="js/fit.js"></script>
 
-	<script type="text/javascript" src="js/ui.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
-	<script type="text/javascript" src="js/download.js"></script>
+	<script type="text/javascript" src="js/app.ui.js"></script>
+	<script type="text/javascript" src="js/app.core.js"></script>
+	<script type="text/javascript" src="js/app.download.js"></script>
 
-	<script type="text/javascript" src="js/init.js"></script>
+	<script type="text/javascript" src="js/app.main.js"></script>
 <?php } ?>
 
 	<?php } else { ?>
