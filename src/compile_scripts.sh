@@ -22,7 +22,7 @@ rm -f js/head.min*.js
 cd js
 
 uglifyjs snap.svg-min.js modernizr.custom.js app.lib.js --keep-fnames --output head.min.$TS.js
-uglifyjs jscolor.js jszip.min.js localforage-1.5/localforage.min.js peaks.js/peaks.js js/chapter.editor.js webvtt_parser.js jquery.textarea.linenumbers.js templates.js svgLoader.js uiProgressButton.js app.ui.js app.core.js app.download.js app.main.js --keep-fnames --output app.min.$TS.js --source-map
+uglifyjs jscolor.js jszip.min.js localforage-1.5/localforage.min.js peaks.js/peaks.js chapter.editor.js webvtt_parser.js jquery.textarea.linenumbers.js templates.js svgLoader.js uiProgressButton.js app.ui.js app.core.js app.download.js app.main.js --keep-fnames --output app.min.$TS.js --source-map
 
 cd ..
 
@@ -66,7 +66,9 @@ rm css/cog.css
 rm css/colours.css
 rm css/header.css
 rm css/tabs.css
+rm css/prism.css
 rm css/alert.css
+rm css/tinycolorpicker.css
 rm css/range.css
 rm css/audio-player.css
 rm css/audio-splitter.css
@@ -87,6 +89,7 @@ rm js/jscolor.js
 rm js/jszip.min.js
 rm js/localforage-1.5/localforage.min.js
 rm js/peaks.js/peaks.js
+rm js/chapter.editor.js
 rm js/webvtt_parser.js
 rm js/jquery.textarea.linenumbers.js
 rm js/templates.js

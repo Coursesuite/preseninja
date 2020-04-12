@@ -34,12 +34,11 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-		<script src="js/modernizr.custom.js"></script>
 		<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
 		<script type="text/javascript">var App = <?php echo json_encode($jsApp, JSON_NUMERIC_CHECK); ?>, Layer = new WebSocket("<?php echo $verifier->app->socket; ?>"); <?php echo $verifier->app->layer; ?>;</script>
 <?php if ($verifier->code->minified) { ?>
 		<link rel="stylesheet" type="text/css" href="<?php echo $minified_css; ?>" />
+		<script type="text/javascript" src="<?php echo $minified_head; ?>"></script>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -48,23 +47,10 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 		  ga('create', 'UA-68767047-3', 'auto');
 		  ga('send', 'pageview');
 		</script>
-		<!-- Piwik -->
-		<script type="text/javascript">
-		  var _paq = _paq || [];
-		  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-		  _paq.push(['trackPageView']);
-		  _paq.push(['enableLinkTracking']);
-		  (function() {
-		    var u="//stats.coursesuite.ninja/";
-		    _paq.push(['setTrackerUrl', u+'piwik.php']);
-		    _paq.push(['setSiteId', '2']);
-		    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-		  })();
-		</script>
-		<!-- End Piwik Code -->
-
 <?php } else { ?>
+		<script type="text/javascript" src="js/app.lib.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 <?php } ?>
 		<script type="text/javascript" src="https://static-cdn.kloudless.com/p/platform/sdk/kloudless.explorer.js" async="true"></script>
@@ -708,7 +694,6 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 	<script type="text/javascript" src="js/localforage-1.5/localforage.min.js"></script>
 	<script type="text/javascript" src="js/webvtt_parser.js"></script>
 	<script type="text/javascript" src="js/jquery.textarea.linenumbers.js"></script>
-	<script type="text/javascript" src="js/app.lib.js"></script>
 	<script type="text/javascript" src="js/templates.js"></script>
 	<script type="text/javascript" src="js/svgLoader.js"></script>
 	<script type="text/javascript" src="js/uiProgressButton.js"></script>
