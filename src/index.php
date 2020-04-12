@@ -81,25 +81,28 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 
 <body class="sources">
 
-<section class="page-fixed-top">
-		<header id="banner">
-			<div>
-				Audio Presenter
-			</div>
-			<div>
-				<button data-action="pop-help" data-url="/docs/"><i class="ninja-help"></i>Documentation</button>
-				<button data-action="toggle-settings" data-popover="settings" data-label="App settings"><i class="ninja-fiddle"></i>Settings</button>
-				<button data-action="clear-storage" data-popover="yesno" data-label="Reset all settings and content? (no undo)"><i class="ninja-reset"></i>Reset</button>
-			</div>
-		</header>
+	<section class="page-fixed-top">
+
+		<header id="banner"><div class='cs-banner'><h1><img src='img/microphone.svg' width='40' height='40' title='another CourseSuite app'> Audio <span>Presenter</span></h1></div></header>
 
 		<nav id="tabs">
-			<a href="javascript:;" data-tab="sources"><i class="pn-upload"></i> Add <span>sources</span></a>
-			<a href="javascript:;" data-tab="slides"><i class="pn-fiddle"></i> Slide <span>markers</span></a>
-			<a href="javascript:;" data-tab="design"><i class="pn-design"></i> <span>Design</span></a>
-			<a href="javascript:;" data-tab="download"><i class="pn-save"></i> <span>Download</span> your package</a>
+			<a href="javascript:;" data-tab="sources"><i class="pn-upload"></i> Add sources</a>
+			<a href="javascript:;" data-tab="slides"><i class="pn-fiddle"></i> Slide markers</a>
+			<a href="javascript:;" data-tab="design"><i class="pn-design"></i> Design</a>
+			<a href="javascript:;" data-tab="download"><i class="pn-save"></i> Download your package</a>
+			<span class="btn toolbar"><a href="https://guide.coursesuite.ninja/presentationninja/usage" data-action="pop-help" target="app_help">
+				<i class="ninja-help"></i> Help</a>
+			</span>
+			<span class='btn'>
+				<a href="javascript:;" id="clearStorage" title="Clear all files and settings and start over">
+					<span class="reset"><i class="ninja-reset"></i> <span id="reset-hint-text">Reset</span></span>
+				</a>
+				<span id="confirm"><a class="ok" href="javascript:;" id="confirmReset" title="This wipes all files and settings (no undo)!">Yes!</a><a href="javascript:" id="cancelReset" title="Don't reset anything">No!</a></span>
+			</span>
 		</nav>
+
 	</section>
+
 	<audio id="page-audio-obj" preload="metadata" data-slide="-1"></audio>
 	<main>
 		<!-- <section id="grey"></section> -->
@@ -272,7 +275,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 					</div>
 					<!--
 				<div id="waveSurfer" class="wave-surfer" ws-tooltip="Click on chapter names to rename them. Click away or press enter to save. Press escape to cancel.">
-					
+
 				</div>
 				<div id="waveTimeline" class="wave-timeline" ws-tooltip="The timeline shows how far along the track you are. Useful for lining up chapters!"></div>
 				<div id="scrubTrack" class="scrub-track" ws-tooltip="Click on the scrub track or waveform to navigate the audio">
@@ -333,7 +336,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 							 id="play_icon"><tspan
 						 		id="tspan88467"
 						 		x="0"
-						 		y="282" 
+						 		y="282"
 						 		class="material-icons">play_arrow</tspan>
 						 </text>
 						 <text
@@ -343,7 +346,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 							 id="skip_previous_icon"><tspan
 						 		id="tspan667"
 						 		x="20"
-						 		y="282" 
+						 		y="282"
 						 		class="material-icons">skip_previous</tspan>
 						 </text>
 						 <text
@@ -353,7 +356,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 							 id="skip_next_icon"><tspan
 						 		id="tspan8437"
 						 		x="38"
-						 		y="282" 
+						 		y="282"
 						 		class="material-icons">skip_next</tspan>
 						 </text>
 						<rect
@@ -390,7 +393,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 							 id="volume_down_icon"><tspan
 						 		id="tspan843977"
 						 		x="200"
-						 		y="282" 
+						 		y="282"
 						 		class="material-icons">volume_down</tspan>
 						 </text>
 						<rect
@@ -407,7 +410,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 							 id="volume_up_icon"><tspan
 						 		id="tspan843977"
 						 		x="267"
-						 		y="282" 
+						 		y="282"
 						 		class="material-icons">volume_up</tspan>
 						 </text>
 						 <text
@@ -417,7 +420,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 							 id="fullscreen_icon"><tspan
 						 		id="tspan8437"
 						 		x="290"
-						 		y="282" 
+						 		y="282"
 						 		class="material-icons">fullscreen</tspan>
 						 </text>
 					</g>
@@ -727,6 +730,8 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 	<script src="<?php echo $minified_app; ?>"></script>
 <?php } else { ?>
 	<script type="text/javascript" src="js/peaks.js/peaks.js"></script>
+	<script type="text/javascript" src="js/chapter.editor.js"></script>
+
 	<script type="text/javascript" src="js/jscolor.js"></script>
 	<script type="text/javascript" src="js/jszip.min.js"></script>
 	<script type="text/javascript" src="js/localforage-1.5/localforage.min.js"></script>
@@ -737,7 +742,12 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 	<script type="text/javascript" src="js/svgLoader.js"></script>
 	<script type="text/javascript" src="js/uiProgressButton.js"></script>
 	<script type="text/javascript" src="js/fit.js"></script>
+
+	<script type="text/javascript" src="js/ui.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/download.js"></script>
+
+	<script type="text/javascript" src="js/init.js"></script>
 <?php } ?>
 
 	<?php } else { ?>
