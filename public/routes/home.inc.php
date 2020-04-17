@@ -1,13 +1,19 @@
 <section class="uk-section">
 	<div class="uk-container-expand">
 		<div class="ap-margin fadey">
-			<p><img src="assets/graphic.svg" class="ap-maxw"></p>
+			<p><img src="assets/graphic.svg" class="ap-header-image"></p>
 
 			<h2>Upload or record audio for your presentation.
 				<br>Cue slides changes.
 				<br>Get a SCORM completion.
 			</h2>
 			<p>Works with Google Slides, PowerPoint, KeyNote, Open Office and more.</p>
+
+			<hr class="uk-divider-icon">
+
+			<div class="ap-16-9">
+				<iframe width="100%" height="100%" src="assets/prototyping_presentation/index.html"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+			</div>
 
 			<hr class="uk-divider-icon">
 
@@ -22,11 +28,26 @@
 
 			<h3>How does this work?</h3>
 
-			<p>First up you need to upload your presentation, which we will convert to HTML5 for you. Next you can record your audio directly to the browser, or if you already have a recording you can upload that too. We will convert it to web audio format if need be.</p>
+			<p>First up you need to upload your presentation, which we will convert to HTML5 for you.</p>
+
+			<p><img src="assets/prototyping_presentation/data/adding-slides.gif"></p>
+
+			<p>Next you can record your audio directly to the browser, or if you already have a recording you can upload that too. We will convert it to web audio format if need be.</p>
+
+			<p><img src="assets/prototyping_presentation/data/recording-audio.gif"></p>
 
 			<p>Next we'll cue your audio based on the number of slides in the presentation. It's likely that these slide change markers (cue points) won't suit the natural points described in your audio, so you can move the cue points about and play it through to see the slides change as the audio plays.</p>
 
+			<p><img src="assets/prototyping_presentation/data/moving-markers.gif"></p>
+
 			<p>Lastly you can choose a simple design for the output and download your package. It's pretty simple on the surface (there's lots going on underneath that you really don't need to worry about).</p>
+
+			<p><img src="assets/prototyping_presentation/data/adjusting-colours.gif"></p>
+
+			<p>Then, it's just a case of using your online learning tools to insert and deliver the package.</p>
+
+			<p><img src="assets/prototyping_presentation/data/adding-a-scorm-package.gif"></p>
+
 
 			<hr class="uk-divider-icon">
 

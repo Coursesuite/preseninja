@@ -22,6 +22,15 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.3/js/uikit-icons.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.min.js"></script>
 		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script type="text/javascript">
+			function scaleIso() {
+				var px = Math.max(0.4, Math.min(1, 1 - ((window.scrollY / 850) / 2)));
+				document.getElementById("iso").style.transform = "scale(" + px + ")";
+			}
+			window.addEventListener("scroll", scaleIso);
+			window.addEventListener("resize", scaleIso);
+			window.addEventListener("DOMContentLoaded", scaleIso);
+		</script>
 		<?php include "_cookie.inc.php"; ?>
 		<?php include "_analytics.inc.php"; ?>
     </head>
@@ -33,7 +42,7 @@
 					<a href="https://www.coursesuite.com/?from=presentation2scorm" target="_self">Coursesuite</a>
 					<a href="https://www.courseassembler.com/?from=presentation2scorm" target="_self">Course Assembler</a>
 					<a href="https://video.to-scorm.com/?from=presentation2scorm" target="_self">Video 2 Scorm</a>
-					<a href="https://presentation.to-scorm.com/?from=presentation2scorm" target="_self">Audio Presentation Ninja</a>
+					<a href="https://presentation.to-scorm.com/?from=presentation2scorm" target="_self">Presentation 2 Scorm</a>
 					<a href="https://coursebuildr.coursesuite.ninja/app/login/?from=presentation2scorm" target="_self">CourseBuilder</a>
 				</div>
 			</div>
@@ -46,4 +55,4 @@
 				<li><?php include "_launch.inc.php"; ?></li>
 			</ul>
 		</header>
-		<img src="assets/logo.svg" class="uk-position-top-left uk-position-small ap-logo" width="500" style="top:2rem">
+		<img src="assets/isotext.svg" class="uk-position-top-left uk-position-small ap-logo" width="500" style="top:2rem" id="iso">

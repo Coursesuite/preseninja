@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no"?>
+<manifest>
+  <organizations default="Ok90s3igj">
+    <organization identifier="Ok90s3igj">
+      <title>Prototyping presentation</title>
+      <item identifier="Ik90s3igj" identifierref="Rk90s3igj">
+        <title>Prototyping presentation</title>
+      </item>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="Rk90s3igj" type="webcontent" adlcp:scormtype="sco" href="index.html">
+      <file href="pres.ninja" />
+      <file href="index.html" />
+      <file href="data/media.mp3" />
+      <file href="data/06ab618daac3e97cdd19e635e7bbc5d6.jpeg" />
+      <file href="data/cc66387f94dcecedce232560ee5716a9.js" />
+      <file href="data/7b022f9921f2a0848e49c78f7b877364.css" />
+      <file href="data/186d971077e4cb04d482a81baa8960dc.css" />
+      <file href="data/cb835d184341d71079bb357eb219ccdb.css" />
+      <file href="data/page-k90qulyg-1.html" />
+      <file href="data/18ca939b30db0c28db4b4675de06c2f6.jpeg" />
+      <file href="data/page-k90qulyk-2.html" />
+      <file href="data/45e5fb147d99e3b907e86d2f7cd54b43.jpeg" />
+      <file href="data/page-k90qulyo-3.html" />
+      <file href="data/6b1ba5bce5c0d9fefeee3510610e4751.jpeg" />
+      <file href="data/page-k90qulys-4.html" />
+      <file href="data/page-k90qulyw-5.html" />
+      <file href="data/305d458f5285e50ea88e36172f3f299b.jpeg" />
+      <file href="data/page-k90qulz0-6.html" />
+      <file href="data/page-k90qulz4-7.html" />
+      <file href="data/27096a4a665daf6bcf415b7a96d5a5a6.jpeg" />
+      <file href="data/page-k90qulz8-8.html" />
+      <file href="data/page-k90qulze-9.html" />
+      <file href="data/be31566358892fd92b088711490b654d.jpeg" />
+      <file href="data/page-k90qulzi-10.html" />
+      <file href="data/page-k90qulzm-11.html" />
+      <file href="data/f613c5ab9885cb6eee846db2cac051e5.jpeg" />
+      <file href="data/page-k90qulzq-12.html" />
+      <file href="data/840dacc436c7165928e3d132accbeca8.jpeg" />
+      <file href="data/page-k90qulzu-13.html" />
+      <file href="data/c6dbb8d213d90fecb749781cc0e3c307.jpeg" />
+      <file href="data/page-k90qulzz-14.html" />
+    </resource>
+  </resources>
+</manifest>
