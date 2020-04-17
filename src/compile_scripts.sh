@@ -50,6 +50,9 @@ cat load.dev.php > load.php
 # ok now we need to go into app and start messing with it
 cd ../public/app
 
+echo "Fixing vendor path" # ../vendor -> ../../vendor
+sed -i'' -e 's/..\/vendor\//..\/..\/vendor\//g' convert.php
+
 echo "Cleaning css"
 rm css/inline.py
 rm css/app.css
@@ -86,7 +89,6 @@ rm js/app.ui.js
 rm js/snap.svg-min.js
 rm js/modernizr.custom.js
 rm js/jscolor.js
-rm js/jszip.min.js
 rm js/localforage-1.5/localforage.min.js
 rm js/peaks.js/peaks.js
 rm js/chapter.editor.js
@@ -95,6 +97,7 @@ rm js/jquery.textarea.linenumbers.js
 rm js/templates.js
 rm js/svgLoader.js
 rm js/uiProgressButton.js
+rm js/kloudless.upload.js
 
 echo "Cleaning handlebars"
 rm -rf ./handlebars
