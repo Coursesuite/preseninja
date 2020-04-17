@@ -702,6 +702,7 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 	<script type="text/javascript" src="js/app.ui.js"></script>
 	<script type="text/javascript" src="js/app.core.js"></script>
 	<script type="text/javascript" src="js/app.download.js"></script>
+	<script type="text/javascript" src="js/kloudless.upload.js"></script>
 
 	<script type="text/javascript" src="js/app.main.js"></script>
 <?php } ?>
