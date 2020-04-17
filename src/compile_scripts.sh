@@ -22,7 +22,7 @@ rm -f js/head.min*.js
 cd js
 
 uglifyjs snap.svg-min.js modernizr.custom.js app.lib.js --keep-fnames --output head.min.$TS.js
-uglifyjs jscolor.js jszip.min.js localforage-1.5/localforage.min.js peaks.js/peaks.js chapter.editor.js webvtt_parser.js jquery.textarea.linenumbers.js templates.js svgLoader.js uiProgressButton.js app.ui.js app.core.js app.download.js app.main.js --keep-fnames --output app.min.$TS.js --source-map
+uglifyjs jscolor.js jszip.min.js localforage-1.5/localforage.min.js peaks.js/peaks.js chapter.editor.js webvtt_parser.js jquery.textarea.linenumbers.js templates.js svgLoader.js uiProgressButton.js app.ui.js app.core.js app.download.js kloudless.upload.js app.main.js --keep-fnames --output app.min.$TS.js --source-map
 
 cd ..
 
