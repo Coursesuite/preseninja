@@ -168,13 +168,12 @@ $api_template = isset($verifier->api->template) ? $verifier->api->template : "";
 					<span class="dot-border"></span>
 				</p>
 				<div class="audio-urlzone">
-					<p class='rec-desc visible'>Record from your microphone<small>Use your computer microphone to record slide audio.
-						<ol>
-							<li>Drop your presentation on first and wait for it to appear.</li>
-							<li>Press record and follow the prompts to allow microphone access.</li>
-							<li>Use the Left and Right arrow keys to change slides. The position will be recorded.</li>
-							<li>Once done, press 'Use Audio' to move to the Slide Markers tab.</li>
-						</ol></small></p>
+					<p class='rec-desc visible'>Record from your microphone</p>
+					<ol class='rec-steps'>
+						<li>Add your presentation <b>first</b>.</li>
+						<li>Press the <b>Record</b> button, follow the prompts.</li>
+						<li>As you talk, press <b>right arrow key</b> to turn pages.</li>
+					</ol>
 					<p class='rec-help'><small>If your presentation is uploaded, you can press the right arrow to set cue points</small></p>
 					<div class="controls-container">
 						<button data-action="record" class="button-secondary pure-button"><span><i class='pn-mic'></i>Record</span></button>

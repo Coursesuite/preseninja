@@ -331,6 +331,9 @@ section#sources > div {
 		/*position: relative;*/
 		/*top: -26px;*/
 	}
+	.audio-urlzone .rec-steps {
+
+	}
 	.audio-urlzone .rec-desc,
 	.audio-urlzone .rec-help {
 		display: none;
