@@ -9,7 +9,7 @@ section#sources {
 	grid-template-columns: 1fr;
 	grid-template-rows: 5% 3fr 5% 1fr;
  */
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 50% 50%;
 	grid-template-rows: 5% 1fr;
 	grid-template-areas: "pres-header audio-header" "pres-content audio-content";
 
