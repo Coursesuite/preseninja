@@ -102,7 +102,8 @@ if (window.File && window.FileList && window.FileReader) { // if we allow droppi
 
 		var dragHandler = {},
 			pasteHandler = {},
-			thisObj = undefined;
+			thisObj = undefined,
+			mr_blobby = {};
 		dragHandler.IsOver = false;
 		dragHandler.DragEnter = function (e) {
 			e.preventDefault();
@@ -137,17 +138,17 @@ if (window.File && window.FileList && window.FileReader) { // if we allow droppi
 				// var blob = dataURItoBlob(b64);
 				// let blobUrl = URL.createObjectURL(blob);
 				if (kind === 'slides') {
-					var blob = new Blob([new Uint8Array(event.target.result)]);
+					var blobby = new Blob([new Uint8Array(event.target.result)]);
 					UI.Converting("slide");
-					dragHandler.convertSlides(file_obj.name, blob);
+					dragHandler.convertSlides(file_obj.name, blobby);
 				} else {
 					UI.Converting("audio");
 					if (extension !== 'mp3') {
-						var blob = new Blob([new Uint8Array(event.target.result)]);
-						dragHandler.convertAudio(file_obj.name, extension, blob);
+						var blobby = new Blob([new Uint8Array(event.target.result)]);
+						dragHandler.convertAudio(file_obj.name, extension, blobby);
 					} else {
-						var blob = new Blob([new Uint8Array(event.target.result)], {type: "audio/mpg"});
-						UI.Dom.Audio.AddSource(blob,true);
+						var blobby = new Blob([new Uint8Array(event.target.result)], {type: "audio/mpg"});
+						UI.Dom.Audio.AddSource(blobby,true);
 					}
 				}
 			}
@@ -193,6 +194,10 @@ if (window.File && window.FileList && window.FileReader) { // if we allow droppi
 		dragHandler.conversion = function(params, blob, kind, title) {
 			performance.mark('conversion-begin');
 			var progress = 0;
+
+			// i need a clone of the original blob, which is destroyed by appending it to formdata later on
+			mr_blobby = new Blob([blob], {type: blob.type});
+
  			/*  =============CLOUD CONVERT, THE LONG WAY===========
 			var startUrl = `https://api.cloudconvert.com/process?inputformat=${params["inputformat"]}&outputformat=${params["outputformat"]}&apikey=${CLOUD_CONVERT_APIKEY}`;
 
@@ -408,17 +413,22 @@ if (window.File && window.FileList && window.FileReader) { // if we allow droppi
 				if (getConverted.status == 200) {
 					if (kind === "slides") {
 						toggleLoad('slide', false);
-						splitDocument(title, getConverted.responseText).then(function() {
-							UI.Dom.Slide.Ready();
-							UI.Dom.Slide.Preview(0);
-							if (document.querySelector('#addAnother > span').textContent !== 'Add another presentation') {
-								document.querySelector('#addAnother > span').textContent = 'Conversion complete';
-								var complete = function(){
-									document.querySelector('#addAnother > span').textContent = 'Add another presentation';
+						reLinkVideos(mr_blobby, title, getConverted.responseText, kind).then(function(o) {
+							splitDocument(o.title, o.html).then(function() {
+								UI.Dom.Slide.Ready();
+								UI.Dom.Slide.Preview(0);
+								if (document.querySelector('#addAnother > span').textContent !== 'Add another presentation') {
+									document.querySelector('#addAnother > span').textContent = 'Conversion complete';
+									var complete = function(){
+										document.querySelector('#addAnother > span').textContent = 'Add another presentation';
+									}
+									setTimeout(complete, 1500);
+									document.getElementById('addAnother').disabled = false;
 								}
-								setTimeout(complete, 1500);
-								document.getElementById('addAnother').disabled = false;
-							}
+								toggleLoad('slide', false);
+								UI.Dom.Slide.Ready();
+								mr_blobby = null;
+							});
 						});
 					} else {
 						var blob = new Blob([new Uint8Array(getConverted.response)], {type: "audio/mpg"});
@@ -506,7 +516,7 @@ function reImport(file) {
 		var pHolder = [];
 		Object.entries(contents["files"]).forEach(function(file) {
 			if (file[0].indexOf('data/page-') !== -1 ||
-				file[0].indexOf('.css') !== -1 || 
+				file[0].indexOf('.css') !== -1 ||
 				file[0].indexOf('.js') !== -1) {
 				pHolder.push(
 					zip.file(file[0]).async("text").then(function(val) {
@@ -597,6 +607,163 @@ function internaliseContent(content) {
 	return Promise.all(pHolder);
 }
 
+// try to link google slides and powerpoint videos
+function reLinkVideos(blobOriginal, title, convertedHTML, source) {
+
+	return new Promise(function(fullResolve, fullReject) {
+
+		var doc = document.implementation.createHTMLDocument("foo");
+		doc.documentElement.innerHTML = convertedHTML;
+
+		// a powerpoint will have this text somewhere in it
+		if (source !== 'google' && convertedHTML.indexOf("pdf2htmlEX") !== -1) {
+
+			var getVidInfo = function(xmlobj) {
+
+				return new Promise(function(resolve, reject) {
+					var pArray = [];
+					var videoObjs = [];
+					var regex = RegExp("(ppt\/slides\/([a-zA-Z0-9])*\.xml)","g");
+					Object.keys(xmlobj.files).forEach(function each_pptx_file(key, index) {
+						if (regex.test(key)) {
+							var slide = xmlobj.files[key].name.substring(xmlobj.files[key].name.lastIndexOf('/')+1).split('.')[0];
+							pArray.push(new Promise(function slide_read_promise(res, rej) {
+								xmlobj.files[key].async('text').then(function read_slide_xml(xmlText) {
+									var xmlObj = tXml(xmlText);
+	// console.dir(xmlObj);
+									var vPicEls = tXml.filter(xmlObj, function get_slide_vid_details(el) {
+										if (el.tagName === 'p:pic') {
+											var vid = {name:slide};
+											var containsVid = false;
+											el.children.forEach(function get_slide_spPr_el(child, index) {
+												if (child.tagName === 'p:spPr') { // Geometry
+													child.children.some(function get_slide_xfrm_el(grandchild) {
+														if (grandchild.tagName === 'a:xfrm') {
+															grandchild.children.forEach(function get_slide_vid_geometry(ggchild, index) {
+																if (ggchild.tagName === 'a:off') {
+																	vid.x = emuToPix(ggchild.attributes.x);
+																	vid.y = emuToPix(ggchild.attributes.y);
+																}
+																if (ggchild.tagName === 'a:ext') {
+																	vid.width = emuToPix(ggchild.attributes.cx);
+																	vid.height = emuToPix(ggchild.attributes.cy);
+																}
+															});
+															return true;
+														}
+													});
+												}
+												if (child.tagName === 'p:nvPicPr') { // video id
+	// console.dir(child);
+													child.children.some(function get_slide_vid_el(grandchild) {
+	// console.dir(grandchild);
+														if (grandchild.tagName === "p:nvPr") {
+															if (grandchild.children) {
+																grandchild.children.some(function get_slide_vid_id(ggchild) {
+																	if (ggchild.tagName === "a:videoFile") {
+																		vid.rId = ggchild.attributes["r:link"];
+																		containsVid = true;
+																		return true;
+																	}
+																});
+															}
+															return true;
+														}
+													});
+												}
+											});
+	// console.dir(vid);
+											if (containsVid) { videoObjs.push(vid); }
+										}
+									});
+									res();
+								});
+							}));
+						}
+					});
+					Promise.all(pArray).then(function resolve_pptx_videos_obj() {
+						resolve({xml:xmlobj, vidObj:videoObjs});
+					});
+				});
+			}
+
+			var getVidEmbed = function(xmlobj, videoObjs) {
+				return new Promise(function(resolve, reject) {
+					var pArray = [];
+					//var regex = new RegExp("(ppt\/slides\/\_rels\/([a-zA-Z0-9])*\.xml.rels)","g");
+					Object.keys(xmlobj.files).forEach(function each_slide_rels(key) {
+	// console.dir(key);
+						if (/(ppt\/slides\/\_rels\/([a-zA-Z0-9])*\.xml.rels)/.test(key)) {
+	// console.dir("found key " + key);
+							pArray.push(new Promise(function slide_rels_promise(res,rej) {
+								xmlobj.files[key].async('text').then(function read_slide_rel(xmlText) {
+									var xmlObj = tXml(xmlText);
+	// console.dir(xmlObj);
+									videoObjs.forEach(function each_video_object(vobj) {
+										xmlObj[0].children[0].children.forEach(function get_video_link(rel) {
+											if (rel.attributes['Id'] === vobj.rId) {
+												if (rel.attributes['Target'].startsWith('http')) {
+													vobj.embed = rel.attributes['Target'];
+												}
+											}
+										})
+									});
+									res();
+								});
+							}));
+						}
+					});
+					Promise.all(pArray).then(function resolve_video_links(){
+						resolve(videoObjs);
+					});
+				});
+			}
+
+			JSZip.loadAsync(blobOriginal)
+			.then(function get_video_info_obj(obj) {
+				// Extract video info and embed code
+				getVidInfo(obj).then(function(obj) {
+					return getVidEmbed(obj.xml, obj.vidObj);
+				}).then(function embed_external_videos(vobjs) {
+					var imgEl = doc.querySelector("#page-container img.bi");
+					for (var i = 0; i<vobjs.length;i++) {
+						if (vobjs[i].embed) {
+							var vidEl = doc.createElement('iframe');
+							vidEl.height = vobjs[i].height;
+							vidEl.width = vobjs[i].width;
+							vidEl.src = vobjs[i].embed;
+							vidEl.style.position = 'absolute';
+							vidEl.style.top = vobjs[i].y +"px";
+							vidEl.style.left = vobjs[i].x + "px";
+							imgEl.parentNode.appendChild(vidEl);
+						}
+					}
+					// return the full html of the thing we just fixed
+					fullResolve({html: "<!DOCTYPE html>" + doc.documentElement.outerHTML, title: title});
+				});
+			});
+
+		} else if (source && source.indexOf('google') !== -1) { // Replace inserted youtube with embeded for google presentations
+
+			[].forEach.call(doc.querySelectorAll('a.l'), function google_slides_video_embed(node) {
+				if (node.href.indexOf('youtube') !== -1 || node.href.indexOf('docs.google.com/file') !== -1) {
+					var embedLink = node.href.replace('watch?v=','embed/').replace('http://','https://');
+					var iframe = doc.createElement('iframe');
+					var div = node.querySelector('div');
+					iframe.src = embedLink;
+					iframe.style = div.style.cssText;
+					iframe.classList = div.classList;
+					node.parentNode.appendChild(iframe);
+					node.parentNode.removeChild(node);
+				}
+			});
+			fullResolve({html: "<!DOCTYPE html>" + doc.documentElement.outerHTML, title: title});
+		} else {
+			fullResolve({html: convertedHTML, title: title}); // didn't need to do anything
+		}
+	});
+}
+
 /*
  * takes the html of a pdf that cloud convert gave us and turns it into multiple pages
  * saving each one into localstorage as it goes
@@ -623,7 +790,7 @@ function splitDocument(title, responseText) {
 		});
 		[].forEach.call(doc.querySelectorAll("a:not([target])"), function(node) {
 			node.setAttribute("target","_blank");
-		}); 
+		});
 		var node = doc.querySelector("body > #sidebar");
 		node.parentNode.removeChild(node);
 		node = doc.querySelector("body > div.loading-indicator");
@@ -640,7 +807,7 @@ function splitDocument(title, responseText) {
 		var pageLength = container.querySelectorAll("div[data-page-no]").length;
 		var clone = container.cloneNode(true); // now we have twice as much in ram!
 		container.style.overflow = "hidden"; // Begone scrollbars!
-		
+
 		var pHolder = [];
 
 		for (var i=0,pageNo=1;i<pageLength;i++) {
@@ -855,9 +1022,11 @@ function oEmbed(url) {
 				xhr.onload = function() {
 					if (xhr.status == 200) {
 						performance.mark('oembed-googledoc-end');
-						splitDocument(title, xhr.responseText).then(function() {
-							toggleLoad('slide', false);
-							UI.Dom.Slide.Ready();
+						reLinkVideos(null, payload.title, xhr.responseText, 'google').then(function(o) {
+							splitDocument(o.title, o.html).then(function() {
+								toggleLoad('slide', false);
+								UI.Dom.Slide.Ready();
+							});
 						});
 					} else {
 						throw new Error ("Document conversion error " + xhr.status);
@@ -875,7 +1044,7 @@ function oEmbed(url) {
 				UI.Reset.Sources.Slides();
 			});
 		};
-		// Bullshit loading bar for some fake feedback
+		// Bullshit loading bar for some fake feedback - users want to see something
 		slideRequest.onreadystatechange = function(e) {
 			if (progress < 50) {
 				progress += 10;
@@ -895,7 +1064,7 @@ function oEmbed(url) {
 
 
 
-// download 
+// download
 
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------
 						User Interface
@@ -922,7 +1091,7 @@ function toggleImportLoad(on) {
 	}
 }
 
-//ui 
+//ui
 
 
 // Sets a cue at the current time while recording

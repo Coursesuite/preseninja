@@ -203,16 +203,20 @@ var UI = (function () {
 		UI.Nav.Slides.Show();
 		UI.Dom.Slide.Preview(0);
 
-		// Setup default slide names
+		// Setup default slide names, if they exist yet.
 		localforage.getItem('props').then(function(val) {
-			if (val.slidePageNames.length === 0 || val.slidePageNames.length !== val.slides.length) {
-				var i = (val.slidePageNames.length == 0) ? 0 : val.slidePageNames.length - 1;
-				for (i; i < props.slides.length; i++) {
-					props.slidePageNames[i] = 'Slide ' + (i+1);
+			if (val && val.hasOwnProperty('slidePageNames')) {
+				if (val.slidePageNames.length === 0 || val.slidePageNames.length !== val.slides.length) {
+					var i = (val.slidePageNames.length == 0) ? 0 : val.slidePageNames.length - 1;
+					for (i; i < props.slides.length; i++) {
+						props.slidePageNames[i] = 'Slide ' + (i+1);
+					}
+					localforage.setItem('props', props);
+				} else {
+					props.slidePageNames = val.slidePageNames;
 				}
-				localforage.setItem('props', props);
 			} else {
-				props.slidePageNames = val.slidePageNames;
+				props.slidePageNames = [];//fill with empties
 			}
 		});
 
@@ -246,7 +250,7 @@ var UI = (function () {
 			switch (instance.id) {
 				case "bg-colour":
 					style.push(
-						".audio-preview > svg > rect { fill: " + pcolor + ";} " + 
+						".audio-preview > svg > rect { fill: " + pcolor + ";} " +
 						".basic-player-preview > svg > g > rect { fill: " + pcolor + ";} " +
 						".mobile-player-preview > svg >g:first-of-type > rect:first-of-type { fill: " + pcolor + ";} "
 						);
@@ -254,10 +258,10 @@ var UI = (function () {
 				case "range-colour":
 					props["progress-color"] = (instance.jscolor.isLight()) ? "#000" : "#FFF";
 					style.push(
-						".audio-preview > svg > g:last-of-type > rect { fill: " + pcolor + ";} " + 
+						".audio-preview > svg > g:last-of-type > rect { fill: " + pcolor + ";} " +
 						".basic-player-preview > svg > g:last-of-type > rect { fill: " + pcolor + ";} " +
 						".basic-player-preview > svg > g:last-of-type > rect#svgBasicProgress { fill: " + props["progress-color"] + ";} " +
-						".mobile-player-preview > svg > g:first-of-type > rect#svgMobileScrub { fill: " + pcolor + ";} " + 
+						".mobile-player-preview > svg > g:first-of-type > rect#svgMobileScrub { fill: " + pcolor + ";} " +
 						".mobile-player-preview > svg > g:first-of-type > rect#svgMobileProgress { fill: " + props["progress-color"] + ";}" +
 						".mobile-player-preview > svg > g:last-of-type > rect { fill: " + pcolor + ";}"
 						);
