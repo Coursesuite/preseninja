@@ -1,22 +1,23 @@
-	<div class="uk-section uk-padding-remove-bottom">
-		<div class="uk-container">
+<section class="uk-section">
+	<div class="uk-container-expand">
+		<div class="ap-margin uk-light">
 			<h1>Changelog</h1>
+
+			<ul uk-accordion="multiple: true">
+			<?php
+			$Parser = new Parsedown();
+			$files = get_files(APP . "/assets/changelog");
+			foreach ($files as $file) {
+				echo "<li>", PHP_EOL;
+				echo "<a href='#' class='uk-accordion-title'>", $file["date"], "</a>", PHP_EOL;
+				echo "<div class='uk-accordion-content'>", $Parser->text($file["contents"]), "</div>", PHP_EOL;
+				echo "</li>", PHP_EOL;
+			}
+			?>
+			</ul>
 		</div>
 	</div>
-
-	<div class="uk-container uk-margin-large">
-		<ul uk-accordion="multiple: true">
-		<?php
-		$Parser = new Parsedown();
-		$files = get_files(APP . "/assets/changelog");
-		foreach ($files as $file) {
-			echo "<li>", PHP_EOL;
-			echo "<a href='#' class='uk-accordion-title'>", $file["date"], "</a>", PHP_EOL;
-			echo "<div class='uk-accordion-content'>", $Parser->text($file["contents"]), "</div>", PHP_EOL;
-			echo "</li>", PHP_EOL;
-		}
-		?>
-	</div>
+</section>
 
 <?php
 function get_files($real_path) {

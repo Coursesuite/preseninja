@@ -22,17 +22,18 @@ hr {
 	transition: transform .1s;
 }
 
-
-.ap-margin {
-	margin-left: 25px;
-	margin-top: 300px;
-	width: 90%;
+.uk-navbar-nav .uk-badge {
+	background-color:  #ffea08;
+	color: black;
+	margin-left: 2px;
 }
+
 
 .ap-logo {
 	position: relative;
 }
 
+body.changelog .ap-margin,
 body.faq .ap-margin {
 	margin-top: 300px;
 }

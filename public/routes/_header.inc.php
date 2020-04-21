@@ -51,6 +51,7 @@
 			<ul class="uk-navbar-nav">
 				<li><a href="/">Home</a></li>
 				<li><a href="/faq">Faq</a></li>
+				<li><a href="/changelog">Changelog<?php badge('/changelog'); ?></a></li>
 				<li><a href="https://guide.coursesuite.ninja/presentationninja/usage">Documentation</a></li>
 				<li><?php include "_launch.inc.php"; ?></li>
 			</ul>
