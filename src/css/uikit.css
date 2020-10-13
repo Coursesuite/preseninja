@@ -1,0 +1,8 @@
+nav.gradient {
+	background: linear-gradient(to left, #28a5f5, #1e87f0);
+}
+
+#presentation-dropzone {
+	text-align:  center;
+	border:  1px dashed #ccc;
+}

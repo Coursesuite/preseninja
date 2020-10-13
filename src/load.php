@@ -10,6 +10,6 @@ putenv("AUTHAPI_PASSWORD=GEv6mJ7wJgWR");
 putenv("HOME_URL=http://apresninja.coursesuite.ninja.test/");
 
 require_once('../vendor/autoload.php');
-$verifier = (new CoursesuiteValidator(false,false))->Validate($_GET);
+$verifier = (new CoursesuiteValidator(false,false,true))->Validate($_GET);
 $verifier->valid = true;
 $verifier->code->minified = false;

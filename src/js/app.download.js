@@ -297,21 +297,57 @@ var Downloader = (function () {
 
 	// perform a PUT/POST to the destination url
 	var _publishTo = function (content, name) {
-		$("div.progress-button[data-destination='publish'] > button > span").html("<i class='fa fa-circle-o-notch fa-spin'></i> Uploading ...");
+		var div = document.querySelector("div.progress-button[data-destination='publish']"),
+			$span = $(">button>span", div),
+			_html = $span.html();
+		$span.html("<i class='fa fa-circle-o-notch fa-spin'></i> Uploading ...");
 		var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp'),
 			fd = new FormData();
 		fd.append("file", content, name);
 		xhr.open(App.Method, App.Publish, true);
 		xhr.onload = function (result) {
-			$("div.progress-button[data-destination='preview'] > button > span").html("<i class='ninja-upload'></i> Publish to LMS");
 			if (this.status == 200) {
-				performAlert("","Your package has been uploaded.");
+				$span.html("Uploaded");
+			} else {
+				$span.html("Failed");
+			}
+			setTimeout(function() {
+				$span.html(_html);
+				// bindDownloadButtons();
+			},3456);
+		}
+		xhr.onerror = function (result) {
+			console.dir(result);
+			$span.html("<i class='fa fa-eye'></i> Upload error (too big?)");
+			var ui = new UIProgressButton(div); ui.stop(-1);
+			if (result.type === "error") {
+				setTimeout(function() {
+					$span.html(_html)
+				},3456);
 			}
 		}
 		xhr.setRequestHeader("Authorization", "Bearer " + App.Bearer);
 		xhr.setRequestHeader("X-Filename", name);
 		xhr.send(fd);
 	};
+
+	// // perform a PUT/POST to the destination url
+	// var _publishTo = function (content, name) {
+	// 	$("div.progress-button[data-destination='publish'] > button > span").html("<i class='fa fa-circle-o-notch fa-spin'></i> Uploading ...");
+	// 	var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp'),
+	// 		fd = new FormData();
+	// 	fd.append("file", content, name);
+	// 	xhr.open(App.Method, App.Publish, true);
+	// 	xhr.onload = function (result) {
+	// 		$("div.progress-button[data-destination='preview'] > button > span").html("<i class='ninja-upload'></i> Publish to LMS");
+	// 		if (this.status == 200) {
+	// 			performAlert("","Your package has been uploaded.");
+	// 		}
+	// 	}
+	// 	xhr.setRequestHeader("Authorization", "Bearer " + App.Bearer);
+	// 	xhr.setRequestHeader("X-Filename", name);
+	// 	xhr.send(fd);
+	// };
 
 	var _openIn = function (content, name) {
 		$("div.progress-button[data-destination='preview'] > button > span").html("<i class='fa fa-circle-o-notch fa-spin'></i> Uploading ...");

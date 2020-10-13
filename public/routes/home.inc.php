@@ -48,12 +48,17 @@
 
 			<p><img src="assets/prototyping_presentation/data/adding-a-scorm-package.gif"></p>
 
-
 			<hr class="uk-divider-icon">
 
 			<h3>Is this tool for me?</h3>
 
-			<p>If you ever talk over your presentation, this is another handy tool for your elearning utility belt. <em>Give it a shot today.</em></p>
+			<p>If you ever talk over your presentation, this is another handy tool for your elearning utility belt.</p>
+
+			<hr class="uk-divider-icon">
+
+			<h3>Yes, yes, how much is it?</h3>
+
+			<p>The Audio Presentation 2 Scorm utility is a <b>FREE</b> product, brought to you by <a href="https://www.courseassembler.com/" target="_blank">Course Assembler</a>.</p>
 
 		</div></div>
 	</div>

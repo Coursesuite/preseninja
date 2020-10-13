@@ -1,3 +1,5 @@
+Sentry.init({ dsn: 'https://19da4c1c84e54e7a9bb8591bf3b896dc@o264333.ingest.sentry.io/5269409' });
+
 var body = document.body,
 	header = document.getElementById("banner"),
 	nav = document.getElementById("tabs"),
@@ -34,8 +36,8 @@ var body = document.body,
 		chapterWidths: [],
 		cues: [],
 	},
-	CLOUD_CONVERT_APIKEY = "8pxT0DHRE5lpcVzildrPoEbztL9rc5Es89xG0incUfPNB93LLZueEr7zTK7PTuZmcV1hXkRMITbhjS-U1NnnzQ",
-	KLOUDLESS_APP_ID = "UNhGZvmzssuPCnJvnMg_EbQy1Z9kK5z_gQMOFM5qxTSEgJlq", // https://developers.kloudless.com/applications/ninjasuite/details
+	CLOUD_CONVERT_APIKEY = atob("OHB4VDBESFJFNWxwY1Z6aWxkclBvRWJ6dEw5cmM1RXM4OXhHMGluY1VmUE5COTNMTFp1ZUVyN3pUSzdQVHVabWNWMWhYa1JNSVRiaGpTLVUxTm5uelEK"),
+	KLOUDLESS_APP_ID = atob("Tk1ockFuMXl6enZIeDNWUEgwYThsNmxtS05kSndvOXZnYXhJU3BrN284U0tTZ200Cg=="), // https://developers.kloudless.com/applications/presentation-2-scorm/details
 	MUTED = false,
 	AUTOCONVERT = true,
 	_colour_pickers = [],

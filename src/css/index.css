@@ -1,0 +1,82 @@
+html {
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+aside {
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 300px !important;
+    padding: 40px 40px 60px 40px;
+    border-right: 1px silver solid;
+    overflow: auto;
+}
+
+article {
+    position: fixed;
+    top: 80px;
+    left: 300px;
+    right: 0;
+    bottom: 125px;
+    border-bottom: 1px silver solid;
+    padding: 40px 40px 60px 40px;
+    overflow: auto;
+}
+
+footer {
+    position: fixed;
+    top: calc(100vh - 125px);
+    bottom: 0;
+    left: 300px;
+    right: 0;
+    background: #f8f8f8;
+}
+footer .controls {
+    padding: 5px 10px;
+}
+.silver-butt,
+footer .controls:not(:last-of-type) {
+    border-bottom: 1px solid silver;
+}
+
+div[id*='-dropzone'] {
+    border: 1px dashed silver;
+    text-align: center;
+}
+body.drag-over div[id*='-dropzone'] {
+    background-color: lightyellow;
+    cursor: grabbing;
+}
+
+body.waiting {
+    cursor: wait;
+}
+
+#thumbnails {
+    counter-reset: slide;
+}
+#thumbnails > li {
+    position: relative;
+}
+#thumbnails > li:before {
+    position: absolute;
+    counter-increment: slide;
+    content: counter(slide);
+    margin-left: -1rem;
+}
+
+.uk-button-secondary {
+    background: #5ab995
+}
+
+a[href='#reset'] {
+    color: rebeccapurple !important;
+}
+

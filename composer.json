@@ -1,8 +1,13 @@
 {
     "require": {
-        "cloudconvert/cloudconvert-php": "^2.2",
         "frumbert/coursesuitevalidator": "dev-master",
         "altorouter/altorouter": "^1.2",
-        "erusev/parsedown-extra": "^0.7.1"
+        "erusev/parsedown-extra": "^0.7.1",
+        "cloudconvert/cloudconvert-php": "^3.0"
+    },
+    "autoload": {
+    	"psr-4": {
+    		"": ["lib/"]
+    	}
     }
 }

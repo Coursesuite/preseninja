@@ -35,23 +35,8 @@
 		<?php include "_analytics.inc.php"; ?>
     </head>
     <body class="<?php echo str_replace('.inc.php','',$fn); ?> uk-position-relative">
-    	<div uk-sticky="media: 960" class="uk-navbar-container my-bg-blue uk-sticky uk-sticky-fixed uk-navbar-transparent">
-			<div class="uk-container uk-container-expand coursesuite-bar">
-				<div class=" uk-padding-small">
-					<img src="assets/coursesuite-glyph.svg" style="width:1rem" class="embiggen">
-					<a href="https://www.coursesuite.com/?from=presentation2scorm" target="_self">Coursesuite</a>
-					<a href="https://www.courseassembler.com/?from=presentation2scorm" target="_self">Course Assembler</a>
-					<a href="https://video.to-scorm.com/?from=presentation2scorm" target="_self">Video 2 Scorm</a>
-					<a href="https://presentation.to-scorm.com/?from=presentation2scorm" target="_self">Presentation 2 Scorm</a>
-					<a href="https://coursebuildr.coursesuite.ninja/app/login/?from=presentation2scorm" target="_self">CourseBuilder</a>
-				</div>
-			</div>
-		</div>
     	<header class="uk-position-top-right uk-position-large uk-position-fixed">
 			<ul class="uk-navbar-nav">
-				<li><a href="/">Home</a></li>
-				<li><a href="/faq">Faq</a></li>
-				<li><a href="/changelog">Changelog<?php badge('/changelog'); ?></a></li>
 				<li><a href="https://guide.coursesuite.ninja/presentationninja/usage">Documentation</a></li>
 				<li><?php include "_launch.inc.php"; ?></li>
 			</ul>
