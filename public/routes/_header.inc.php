@@ -37,7 +37,7 @@
     <body class="<?php echo str_replace('.inc.php','',$fn); ?> uk-position-relative">
     	<header class="uk-position-top-right uk-position-large uk-position-fixed">
 			<ul class="uk-navbar-nav">
-				<li><a href="https://guide.coursesuite.ninja/presentationninja/usage">Documentation</a></li>
+				<li><a href="/docs">Documentation</a></li>
 				<li><?php include "_launch.inc.php"; ?></li>
 			</ul>
 		</header>
