@@ -3,7 +3,7 @@ error_reporting(32767); // gotta catch em all
 require '../../vendor/autoload.php';
 
 use \CloudConvert\Api;
-$api = new Api("8pxT0DHRE5lpcVzildrPoEbztL9rc5Es89xG0incUfPNB93LLZueEr7zTK7PTuZmcV1hXkRMITbhjS-U1NnnzQ");
+$api = new Api("-api-key-");
 
 $content = file_get_contents($_FILES["file"]["tmp_name"]);
 $fileUrl = 'data:' . $_FILES["file"]["type"] . ';base64,' . base64_encode($content);
